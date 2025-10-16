@@ -430,7 +430,7 @@ h1 {
     cursor: pointer;
     padding: 8px;
     border-radius: 50%;
-    transition: background 0.2s;
+    transition: var(--background-color) 0.2s;
 }
 
 .close-modal:hover {
