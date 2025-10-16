@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>London in Motion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 10px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-image-container {
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .modal-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .modal-text-content {
+            padding: 30px;
+        }
+
+        .modal-text-content h2 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .modal-text-content p {
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            font-size: 2rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+
+        .close-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-section h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background: #3498db;
+        }
+
+        .footer-section p {
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #3498db;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: background 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: #3498db;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #bdc3c7;
+        }
+
+        .creator-credit {
+            margin-top: 10px;
+            font-weight: 600;
+            color: #3498db;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            header p {
+                font-size: 1rem;
+            }
+            
+            .grid-container {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .modal-content {
+                flex-direction: column;
+            }
+            
+            .modal-image-container {
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 60px 20px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Glimpse in London</h1>
+        <p>An interactive gallery showcasing the vibrant culture and iconic landmarks of London. Click a card to explore.</p>
+    </header>
+
+    <main class="grid-container" id="gridContainer">
+        <!-- Cards will be dynamically generated here -->
+    </main>
+
+    <div class="modal-overlay hidden" id="modal">
+        <div class="modal-content">
+            <div class="modal-image-container">
+                <img src="" alt="">
+            </div>
+            <div class="modal-text-content">
+                <h2></h2>
+                <p></p>
+            </div>
+        </div>
+        <button class="close-button" id="closeButton">&times;</button>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About London in Motion</h3>
+                <p>London in Motion is an interactive digital gallery that brings the vibrant energy of England's capital to your screen. Our mission is to showcase the rich tapestry of London's history, culture, and modern attractions through stunning visuals and engaging content.</p>
+                <p>From historic landmarks to contemporary art scenes, we capture the essence of London's dynamic spirit in every image.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Explore London</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Historic Landmarks</a></li>
+                    <li><a href="#">Cultural Events</a></li>
+                    <li><a href="#">Food & Dining</a></li>
+                    <li><a href="#">Shopping Districts</a></li>
+                    <li><a href="#">Parks & Gardens</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <p>Stay updated with the latest London discoveries and travel tips by following us on social media.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook">FB</a>
+                    <a href="#" aria-label="Twitter">TW</a>
+                    <a href="#" aria-label="Instagram">IG</a>
+                    <a href="#" aria-label="YouTube">YT</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2023 London in Motion. All rights reserved.</p>
+            <p class="creator-credit">Created by Rihobot Elias</p>
+        </div>
+    </footer>
+
+    <script>
+        // Sample data for London attractions
+        const londonData = [
+            {
+                id: 1,
+                title: "Tower Bridge",
+                description: "An iconic London landmark and one of the most recognizable bridges in the world. Completed in 1894, this combined bascule and suspension bridge crosses the River Thames close to the Tower of London. The bridge's twin towers, high-level walkways, and Victorian engine rooms now form part of the Tower Bridge Exhibition.",
+                image: "https://images.unsplash.com/photo-1549144517-8d43f5b53bf2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+                category: "Landmark"
+            },
+            {
+                id: 2,
+                title: "Buckingham Palace",
+                description: "The London residence and administrative headquarters of the monarch of the United Kingdom. Located in the City of Westminster, the palace is often at the centre of state occasions and royal hospitality. It has been a focal point for the British people at times of national rejoicing and mourning. The Changing of the Guard ceremony is a major tourist attraction.",
+                image: "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+                category: "Royal"
+            },
+            {
+                id: 3,
+                title: "British Museum",
+                description: "Dedicated to human history, art and culture, with a permanent collection of over 8 million works. Established in 1753, it was the first public national museum in the world. The museum's extensive collections span over two million years of human history and culture, including the Rosetta Stone and the Parthenon sculptures.",
+                image: "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+                category: "Museum"
+            },
+            {
+                id: 4,
+                title: "London Eye",
+                description: "Europe's tallest cantilevered observation wheel, offering panoramic views of the city. Standing at 135 meters tall, the London Eye has become one of the most popular tourist attractions in the United Kingdom. Each rotation takes about 30 minutes, providing visitors with breathtaking views of London's skyline, including Big Ben and St. Paul's Cathedral.",
+                image: "https://images.unsplash.com/photo-1533929736458-ca588d08c8be?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+                category: "Attraction"
+            },
+            {
+                id: 5,
+                title: "St. Paul's Cathedral",
+                description: "An Anglican cathedral with a dome that has dominated the London skyline for over 300 years. Designed by Sir Christopher Wren after the Great Fire of London, the present building dates from the 17th century. The cathedral has hosted many significant events, including the wedding of Prince Charles and Lady Diana Spencer, and the funeral of Winston Churchill.",
+                image: "https://images.unsplash.com/photo-1592394675778-4239b838fb2c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+                category: "Religious"
+            },
+            {
+                id: 6,
+                title: "Hyde Park",
+                description: "One of the largest parks in London and home to the famous Serpentine Lake. Covering 350 acres, Hyde Park is one of the city's eight Royal Parks. It's famous for Speaker's Corner, where people have been exercising their right to free speech since the mid-1800s. The park also hosts large-scale concerts and events throughout the year.",
+                image: "https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+                category: "Park"
+            }
+        ];
+
+        const gridContainer = document.getElementById('gridContainer');
+        const modal = document.getElementById('modal');
+        const closeButton = document.getElementById('closeButton');
+        const modalImage = modal.querySelector('img');
+        const modalTitle = modal.querySelector('h2');
+        const modalDescription = modal.querySelector('p');
+
+        // Function to create cards
+        function createCards() {
+            londonData.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.setAttribute('data-id', item.id);
+                
+                card.innerHTML = `
+                    <img src="${item.image}" alt="${item.title}" class="card-image">
+                    <div class="card-content">
+                        <h3>${item.title}</h3>
+                        <p>${item.description.substring(0, 100)}...</p>
+                    </div>
+                `;
+                
+                card.addEventListener('click', () => openModal(item));
+                gridContainer.appendChild(card);
+            });
+        }
+
+        // Function to open modal
+        function openModal(item) {
+            modalImage.src = item.image;
+            modalImage.alt = item.title;
+            modalTitle.textContent = item.title;
+            modalDescription.textContent = item.description;
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+
+        // Function to close modal
+        function closeModal() {
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+
+        // Event listeners
+        closeButton.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Initialize the gallery
+        createCards();
+    </script>
+</body>
+</html>
