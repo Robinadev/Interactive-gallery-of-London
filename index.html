@@ -300,47 +300,181 @@
         }
     </style>
 </head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>London AI Guide - Gemini Style</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
 <body>
-    <header>
-        <h1>Glimpse in London</h1>
-        <p>An interactive gallery showcasing the vibrant culture and iconic landmarks of London. Click a card to explore.</p>
-    </header>
-
-    <main class="grid-container" id="gridContainer">
-        <!-- Cards will be dynamically generated here -->
-    </main>
-
-    <div class="modal-overlay hidden" id="modal">
-        <div class="modal-content">
-            <div class="modal-image-container">
-                <img src="" alt="">
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">🤖</div>
+                <h1>London AI Guide</h1>
             </div>
-            <div class="modal-text-content">
-                <h2></h2>
-                <p></p>
+            <p class="subtitle">Powered by Gemini AI Technology</p>
+        </header>
+        
+        <div class="attractions-grid">
+            <!-- Tower Bridge -->
+            <div class="attraction-card" data-attraction="tower-bridge">
+                <div class="image-container">
+                    <img 
+                        src="https://images.unsplash.com/photo-1549144517-8d43f5b53bf2?auto=format&fit=crop&w=800&q=80" 
+                        alt="Tower Bridge" 
+                        class="attraction-image"
+                    >
+                    <div class="ai-badge">AI Analysis Available</div>
+                </div>
+                <div class="card-content">
+                    <h3>Tower Bridge</h3>
+                    <p>Iconic Victorian Bridge</p>
+                    <div class="ai-preview">
+                        <span class="thinking-dots"></span>
+                        Ask me about this landmark...
+                    </div>
+                </div>
             </div>
+
+            <!-- Big Ben -->
+            <div class="attraction-card" data-attraction="big-ben">
+                <div class="image-container">
+                    <img 
+                        src="https://images.unsplash.com/photo-1529655683826-aba9b3e77383?auto=format&fit=crop&w=800&q=80" 
+                        alt="Big Ben" 
+                        class="attraction-image"
+                    >
+                    <div class="ai-badge">AI Analysis Available</div>
+                </div>
+                <div class="card-content">
+                    <h3>Big Ben</h3>
+                    <p>Historic Clock Tower</p>
+                    <div class="ai-preview">
+                        <span class="thinking-dots"></span>
+                        Ask me about this landmark...
+                    </div>
+                </div>
+            </div>
+
+            <!-- London Eye -->
+            <div class="attraction-card" data-attraction="london-eye">
+                <div class="image-container">
+                    <img 
+                        src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=800&q=80" 
+                        alt="London Eye" 
+                        class="attraction-image"
+                    >
+                    <div class="ai-badge">AI Analysis Available</div>
+                </div>
+                <div class="card-content">
+                    <h3>London Eye</h3>
+                    <p>Giant Observation Wheel</p>
+                    <div class="ai-preview">
+                        <span class="thinking-dots"></span>
+                        Ask me about this landmark...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Buckingham Palace -->
+            <div class="attraction-card" data-attraction="buckingham-palace">
+                <div class="image-container">
+                    <img 
+                        src="https://images.unsplash.com/photo-1592394675770-79f51af1f8c9?auto=format&fit=crop&w=800&q=80" 
+                        alt="Buckingham Palace" 
+                        class="attraction-image"
+                    >
+                    <div class="ai-badge">AI Analysis Available</div>
+                </div>
+                <div class="card-content">
+                    <h3>Buckingham Palace</h3>
+                    <p>Royal Residence</p>
+                    <div class="ai-preview">
+                        <span class="thinking-dots"></span>
+                        Ask me about this landmark...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add more attractions here -->
         </div>
-        <button class="close-button" id="closeButton">&times;</button>
     </div>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>About London in Motion</h3>
-                <p>London in Motion is an interactive digital gallery that brings the vibrant energy of England's capital to your screen. Our mission is to showcase the rich tapestry of London's history, culture, and modern attractions through stunning visuals and engaging content.</p>
-                <p>From historic landmarks to contemporary art scenes, we capture the essence of London's dynamic spirit in every image.</p>
+    <!-- Gemini-style AI Modal -->
+    <div id="aiModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="ai-avatar">
+                    <div class="avatar-icon">🤖</div>
+                    <div class="ai-status">
+                        <span class="status-text">Gemini AI is analyzing...</span>
+                        <div class="typing-indicator">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+                <button class="close-modal">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                </button>
             </div>
-            
-            <div class="footer-section">
-                <h3>Explore London</h3>
-                <ul class="footer-links">
-                    <li><a href="#">Historic Landmarks</a></li>
-                    <li><a href="#">Cultural Events</a></li>
-                    <li><a href="#">Food & Dining</a></li>
-                    <li><a href="#">Shopping Districts</a></li>
-                    <li><a href="#">Parks & Gardens</a></li>
-                </ul>
+
+            <div class="modal-body">
+                <div class="chat-container">
+                    <div class="message user-message">
+                        <div class="message-avatar">👤</div>
+                        <div class="message-content">
+                            <p>Tell me about <span id="query-attraction">this attraction</span></p>
+                        </div>
+                    </div>
+
+                    <div class="message ai-message">
+                        <div class="message-avatar">🤖</div>
+                        <div class="message-content">
+                            <div id="ai-response" class="ai-response">
+                                <!-- AI response will appear here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="suggested-questions">
+                    <h4>Ask more about:</h4>
+                    <div class="question-chips">
+                        <button class="question-chip" data-question="history">📜 History</button>
+                        <button class="question-chip" data-question="architecture">🏛️ Architecture</button>
+                        <button class="question-chip" data-question="visiting">🕒 Visiting Tips</button>
+                        <button class="question-chip" data-question="facts">🔍 Fun Facts</button>
+                    </div>
+                </div>
             </div>
+
+            <div class="modal-footer">
+                <div class="input-container">
+                    <input type="text" id="ai-input" placeholder="Ask Gemini AI about this landmark...">
+                    <button id="send-button" class="send-button">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="disclaimer">
+                    <small>Powered by Gemini AI • Responses are simulated for demonstration</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
             
             <div class="footer-section">
                 <h3>Connect With Us</h3>
