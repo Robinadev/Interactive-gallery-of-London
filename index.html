@@ -346,7 +346,7 @@
             gap: 5px;
         }
 
-        /* AI Modal Styles */
+        /* AI Modal Styles - Google Console Style */
         #aiModal {
             position: fixed;
             top: 0;
@@ -372,7 +372,7 @@
         .modal-content {
             background: white;
             border-radius: 16px;
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
@@ -420,23 +420,6 @@
             margin-bottom: 5px;
         }
 
-        .typing-indicator {
-            display: flex;
-            gap: 3px;
-        }
-
-        .typing-indicator span {
-            width: 8px;
-            height: 8px;
-            background: var(--text-light);
-            border-radius: 50%;
-            animation: typing 1.4s infinite ease-in-out;
-        }
-
-        .typing-indicator span:nth-child(1) { animation-delay: 0s; }
-        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
-        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
-
         .close-modal {
             background: none;
             border: none;
@@ -454,58 +437,127 @@
             padding: 30px;
         }
 
-        .chat-container {
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
             margin-bottom: 30px;
         }
 
-        .message {
+        .info-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .info-section h3 {
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+            font-size: 1.2rem;
             display: flex;
-            margin-bottom: 25px;
+            align-items: center;
+            gap: 10px;
         }
 
-        .user-message {
-            justify-content: flex-end;
+        .info-section p {
+            line-height: 1.6;
+            color: var(--text-light);
         }
 
-        .message-avatar {
-            width: 40px;
-            height: 40px;
+        .quick-facts {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .quick-facts h3 {
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .facts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .fact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .fact-icon {
+            width: 30px;
+            height: 30px;
+            background: var(--accent-color);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 15px;
-            flex-shrink: 0;
-        }
-
-        .user-message .message-avatar {
-            background: var(--accent-color);
-            order: 2;
-        }
-
-        .ai-message .message-avatar {
-            background: #f0f0f0;
-        }
-
-        .message-content {
-            max-width: 70%;
-            padding: 15px 20px;
-            border-radius: 18px;
-        }
-
-        .user-message .message-content {
-            background: var(--accent-color);
             color: white;
-            border-bottom-right-radius: 5px;
+            font-size: 0.8rem;
         }
 
-        .ai-message .message-content {
-            background: #f0f0f0;
-            border-bottom-left-radius: 5px;
+        .fact-text {
+            font-size: 0.9rem;
+            color: var(--text-color);
         }
 
-        .ai-response {
-            line-height: 1.6;
+        .ai-console {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .console-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .console-header h3 {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .console-content {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            min-height: 150px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: var(--text-color);
+            overflow-y: auto;
+            max-height: 200px;
+        }
+
+        .console-line {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .console-prompt {
+            color: #34A853;
+            margin-right: 10px;
+            font-weight: bold;
         }
 
         .suggested-questions {
@@ -761,6 +813,10 @@
             h1 {
                 font-size: 3.2rem;
             }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 768px) {
@@ -793,8 +849,8 @@
                 flex-direction: column;
             }
             
-            .message-content {
-                max-width: 85%;
+            .facts-grid {
+                grid-template-columns: 1fr;
             }
             
             .newsletter-form {
@@ -989,12 +1045,7 @@
                 <div class="ai-avatar">
                     <div class="avatar-icon">🤖</div>
                     <div class="ai-status">
-                        <span class="status-text">Gemini AI is analyzing...</span>
-                        <div class="typing-indicator">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
+                        <span class="status-text">Gemini AI Console</span>
                     </div>
                 </div>
                 <button class="close-modal">
@@ -1003,31 +1054,40 @@
             </div>
 
             <div class="modal-body">
-                <div class="chat-container">
-                    <div class="message user-message">
-                        <div class="message-content">
-                            <p>Tell me about <span id="query-attraction">this attraction</span></p>
-                        </div>
-                        <div class="message-avatar">👤</div>
+                <div class="info-grid">
+                    <div class="info-section">
+                        <h3><i class="fas fa-history"></i> History</h3>
+                        <p id="history-content">Loading historical information...</p>
                     </div>
-
-                    <div class="message ai-message">
-                        <div class="message-avatar">🤖</div>
-                        <div class="message-content">
-                            <div id="ai-response" class="ai-response">
-                                <!-- AI response will appear here -->
-                            </div>
-                        </div>
+                    <div class="info-section">
+                        <h3><i class="fas fa-archway"></i> Architecture</h3>
+                        <p id="architecture-content">Loading architectural details...</p>
+                    </div>
+                </div>
+                
+                <div class="quick-facts">
+                    <h3><i class="fas fa-lightbulb"></i> Quick Facts</h3>
+                    <div class="facts-grid" id="facts-container">
+                        <!-- Facts will be dynamically added here -->
+                    </div>
+                </div>
+                
+                <div class="ai-console">
+                    <div class="console-header">
+                        <h3><i class="fas fa-terminal"></i> AI Console</h3>
+                    </div>
+                    <div class="console-content" id="console-content">
+                        <!-- Console output will be dynamically added here -->
                     </div>
                 </div>
 
                 <div class="suggested-questions">
                     <h4>Ask more about:</h4>
                     <div class="question-chips">
-                        <button class="question-chip" data-question="history">📜 History</button>
-                        <button class="question-chip" data-question="architecture">🏛️ Architecture</button>
                         <button class="question-chip" data-question="visiting">🕒 Visiting Tips</button>
-                        <button class="question-chip" data-question="facts">🔍 Fun Facts</button>
+                        <button class="question-chip" data-question="events">📅 Events</button>
+                        <button class="question-chip" data-question="transport">🚇 Transportation</button>
+                        <button class="question-chip" data-question="nearby">📍 Nearby Attractions</button>
                     </div>
                 </div>
             </div>
@@ -1093,7 +1153,7 @@
                 id: 5,
                 title: "St. Paul's Cathedral",
                 description: "An Anglican cathedral with a dome that has dominated the London skyline for over 300 years. Designed by Sir Christopher Wren after the Great Fire of London, the present building dates from the 17th century.",
-                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA_jlW1Y4XPNDLHoQn_eqwB1hGpVOa5so8VA&s",
+                image: "https://images.unsplash.com/photo-1623341215095-6a4e916e5a4d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
                 category: "Religious",
                 location: "St. Paul's Churchyard, London EC4M 8AD",
                 hours: "Open Today: 8:30AM - 4:30PM",
@@ -1123,7 +1183,7 @@
                 id: 8,
                 title: "Natural History Museum",
                 description: "Home to life and earth science specimens comprising some 80 million items within five main collections. The museum is particularly famous for its exhibition of dinosaur skeletons.",
-                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQa5SQU9ZPap0dggtlgaln1AOBdATZWkJEpvQ&s",
+                image: "https://images.unsplash.com/photo-1589329644193-b5e472c49e5f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
                 category: "Museum",
                 location: "Cromwell Rd, South Kensington, London SW7 5BD",
                 hours: "Open Today: 10:00AM - 5:50PM",
@@ -1136,26 +1196,78 @@
             "Tower Bridge": {
                 history: "Tower Bridge was completed in 1894 after 8 years of construction. It was designed by Horace Jones and John Wolfe Barry to ease road traffic while maintaining river access to the Pool of London docks. The bridge's Victorian Gothic style was chosen to harmonize with the nearby Tower of London.",
                 architecture: "Tower Bridge is a combined bascule and suspension bridge. The bascules (moveable roadways) weigh over 1,000 tons each and can be raised to an 86-degree angle in about 5 minutes. The bridge's towers are constructed of steel and clad in Cornish granite and Portland stone.",
-                visiting: "The best time to visit is early morning to avoid crowds. Don't miss the Tower Bridge Exhibition which takes you inside the bridge's structure. Check the bridge lift times online if you want to see it open for river traffic.",
-                facts: "The bridge was originally painted a chocolate brown color, but was later repainted red, white and blue for the Queen's Silver Jubilee in 1977. In 1952, a London bus had to leap from one bascule to the other when the bridge began to rise with the bus still on it!"
+                facts: [
+                    {icon: "📅", text: "Built: 1886-1894"},
+                    {icon: "🏗️", text: "Architect: Horace Jones"},
+                    {icon: "🌉", text: "Type: Bascule & Suspension"},
+                    {icon: "📏", text: "Length: 244 meters"},
+                    {icon: "👥", text: "Visitors: 40,000+ daily"},
+                    {icon: "💰", text: "Cost: £1.2 million in 1894"}
+                ],
+                console: [
+                    "> Initializing Tower Bridge data index...",
+                    "> Loading historical records...",
+                    "> Accessing architectural database...",
+                    "> Compiling visitor statistics...",
+                    "> Data retrieval complete. Ready for queries."
+                ]
             },
             "Buckingham Palace": {
                 history: "Buckingham Palace became the official royal residence in 1837 when Queen Victoria ascended to the throne. The original building was Buckingham House, built in 1703 for the Duke of Buckingham. It was enlarged over the centuries, with the famous balcony added in 1850.",
                 architecture: "The palace features 775 rooms, including 19 State rooms, 52 royal and guest bedrooms, and 78 bathrooms. The East Front, which faces The Mall, was added in 1847. The palace's style is predominantly neoclassical, with influences from French design.",
-                visiting: "The State Rooms are open to visitors during the summer months (July-October). The Changing of the Guard ceremony takes place at 11:00 AM on certain days - check the schedule online. The Royal Mews and Queen's Gallery are open most of the year.",
-                facts: "The palace has its own post office, police station, clinic, and cinema. There are more than 350 clocks and watches in the palace, maintained by two full-time horological conservators. During WWII, the palace was bombed nine times."
+                facts: [
+                    {icon: "👑", text: "Royal Residence since 1837"},
+                    {icon: "🏛️", text: "Style: Neoclassical"},
+                    {icon: "🚪", text: "Rooms: 775 total"},
+                    {icon: "🌳", text: "Garden: 39 acres"},
+                    {icon: "👮", text: "Changing of the Guard daily"},
+                    {icon: "💎", text: "Art Collection: 7,000+ pieces"}
+                ],
+                console: [
+                    "> Accessing Royal Archives...",
+                    "> Loading palace blueprints...",
+                    "> Retrieving visitor protocols...",
+                    "> Compiling historical timeline...",
+                    "> Palace database indexed successfully."
+                ]
             },
             "St. Paul's Cathedral": {
                 history: "The current St. Paul's Cathedral is the fourth to stand on this site. It was designed by Sir Christopher Wren and built between 1675 and 1710 after the previous cathedral was destroyed in the Great Fire of London in 1666.",
                 architecture: "The cathedral's magnificent dome is one of the largest in the world, weighing approximately 65,000 tons. It features three circular galleries: the internal Whispering Gallery, the external Stone Gallery, and the external Golden Gallery at the very top.",
-                visiting: "Allow at least 2 hours for your visit. Climb to the Whispering Gallery for amazing acoustics and to the Golden Gallery for spectacular city views. Attend a service to experience the cathedral's incredible choir. Photography is restricted inside.",
-                facts: "The cathedral survived the Blitz during WWII, becoming a symbol of hope for Londoners. Prince Charles and Lady Diana Spencer were married here in 1981. The crypt contains the tombs of many famous Britons, including Admiral Lord Nelson and the Duke of Wellington."
+                facts: [
+                    {icon: "⛪", text: "Architect: Christopher Wren"},
+                    {icon: "🔥", text: "Rebuilt after Great Fire 1666"},
+                    {icon: "🏗️", text: "Construction: 1675-1710"},
+                    {icon: "📏", text: "Dome height: 111 meters"},
+                    {icon: "💒", text: "Royal Wedding: Charles & Diana"},
+                    {icon: "🎵", text: "Choir founded: 1127"}
+                ],
+                console: [
+                    "> Loading cathedral schematics...",
+                    "> Accessing historical documents...",
+                    "> Calculating dome specifications...",
+                    "> Retrieving event archives...",
+                    "> Cathedral data structure complete."
+                ]
             },
             "British Museum": {
                 history: "The British Museum was established in 1753, largely based on the collections of physician and scientist Sir Hans Sloane. It first opened to the public in 1759 in Montagu House. The current building was designed in the Greek Revival style and completed in 1852.",
                 architecture: "The museum's most famous architectural feature is the Great Court, with its spectacular glass and steel roof designed by Norman Foster. Completed in 2000, it is the largest covered public square in Europe. The Reading Room at the center dates from 1857.",
-                visiting: "Entry is free, though some special exhibitions require tickets. The museum can get very crowded - visit early or late to avoid peak times. Don't miss the Rosetta Stone, the Parthenon sculptures, and the Egyptian mummies. Guided tours are available.",
-                facts: "The museum's collection includes over 8 million works. During WWII, most of the collection was evacuated to underground stations, country houses, and a disused tube tunnel. The museum was only closed for two weeks during the war, reopening with the exhibition 'The Battered Books'."
+                facts: [
+                    {icon: "🏛️", text: "Founded: 1753"},
+                    {icon: "📚", text: "Collections: 8+ million objects"},
+                    {icon: "🆓", text: "Admission: Free"},
+                    {icon: "👥", text: "Visitors: 6+ million annually"},
+                    {icon: "🌍", text: "Galleries: 60+"},
+                    {icon: "📖", text: "Reading Room: 1857"}
+                ],
+                console: [
+                    "> Indexing museum collections...",
+                    "> Loading architectural plans...",
+                    "> Accessing visitor statistics...",
+                    "> Compiling exhibition data...",
+                    "> Museum database fully indexed."
+                ]
             }
         };
 
@@ -1163,15 +1275,30 @@
         const defaultAIResponse = {
             history: "This landmark has a rich history dating back centuries, with significant cultural and architectural importance to London. It has witnessed many historical events and transformations of the city around it.",
             architecture: "The architecture represents a blend of styles from different periods, showcasing the evolution of design and construction techniques. Notable features include intricate details, impressive scale, and innovative engineering solutions.",
-            visiting: "Plan your visit during weekdays to avoid weekend crowds. Check official websites for current opening times and any special events. Consider guided tours for deeper insights into the history and significance of this location.",
-            facts: "This attraction has appeared in numerous films and television shows, becoming an iconic symbol of London worldwide. It attracts millions of visitors annually and has unique stories connected to its creation and history."
+            facts: [
+                {icon: "📅", text: "Historical significance"},
+                {icon: "🏛️", text: "Architectural style"},
+                {icon: "👥", text: "Popular attraction"},
+                {icon: "📍", text: "Central London location"},
+                {icon: "🕒", text: "Regular opening hours"},
+                {icon: "💰", text: "Various ticket options"}
+            ],
+            console: [
+                "> Initializing attraction database...",
+                "> Loading general information...",
+                "> Compiling visitor data...",
+                "> Data retrieval complete.",
+                "> Ready for specific queries."
+            ]
         };
 
         const gridContainer = document.getElementById('gridContainer');
         const aiModal = document.getElementById('aiModal');
         const closeModalBtn = document.querySelector('.close-modal');
-        const queryAttraction = document.getElementById('query-attraction');
-        const aiResponse = document.getElementById('ai-response');
+        const historyContent = document.getElementById('history-content');
+        const architectureContent = document.getElementById('architecture-content');
+        const factsContainer = document.getElementById('facts-container');
+        const consoleContent = document.getElementById('console-content');
         const aiInput = document.getElementById('ai-input');
         const sendButton = document.getElementById('send-button');
         const questionChips = document.querySelectorAll('.question-chip');
@@ -1222,20 +1349,41 @@
         // Function to open AI modal
         function openAIModal(item) {
             currentAttraction = item;
-            queryAttraction.textContent = item.title;
             
-            // Reset AI response
-            aiResponse.innerHTML = '<p>Loading AI insights...</p>';
+            // Get response data or use default
+            const responseData = aiResponses[item.title] || defaultAIResponse;
+            
+            // Update modal content immediately
+            historyContent.textContent = responseData.history;
+            architectureContent.textContent = responseData.architecture;
+            
+            // Populate facts
+            factsContainer.innerHTML = '';
+            responseData.facts.forEach(fact => {
+                const factElement = document.createElement('div');
+                factElement.className = 'fact-item';
+                factElement.innerHTML = `
+                    <div class="fact-icon">${fact.icon}</div>
+                    <div class="fact-text">${fact.text}</div>
+                `;
+                factsContainer.appendChild(factElement);
+            });
+            
+            // Populate console
+            consoleContent.innerHTML = '';
+            responseData.console.forEach(line => {
+                const consoleLine = document.createElement('div');
+                consoleLine.className = 'console-line';
+                consoleLine.innerHTML = `
+                    <span class="console-prompt">></span>
+                    <span>${line}</span>
+                `;
+                consoleContent.appendChild(consoleLine);
+            });
             
             // Show modal
             aiModal.classList.add('active');
             document.body.style.overflow = 'hidden';
-            
-            // Simulate AI loading
-            setTimeout(() => {
-                const responseData = aiResponses[item.title] || defaultAIResponse;
-                aiResponse.innerHTML = `<p>${responseData.history}</p>`;
-            }, 1500);
         }
 
         // Function to close modal
@@ -1249,10 +1397,34 @@
         function handleQuestionChip(questionType) {
             if (!currentAttraction) return;
             
-            const responseData = aiResponses[currentAttraction.title] || defaultAIResponse;
-            const response = responseData[questionType] || "I don't have specific information about that aspect. Would you like to know something else about this attraction?";
+            const responses = {
+                visiting: "The best time to visit is during weekdays in the morning to avoid crowds. Check the official website for current opening hours and any special events or closures.",
+                events: "This attraction hosts various events throughout the year including seasonal exhibitions, cultural festivals, and special guided tours. Check their events calendar for upcoming activities.",
+                transport: "Easily accessible via London Underground, with multiple bus routes serving the area. The nearest tube stations are within walking distance.",
+                nearby: "Several other notable attractions are located nearby, making it easy to plan a full day of sightseeing in this area of London."
+            };
             
-            aiResponse.innerHTML = `<p>${response}</p>`;
+            const response = responses[questionType] || "I don't have specific information about that. Would you like to know something else about this attraction?";
+            
+            // Add to console
+            const consoleLine = document.createElement('div');
+            consoleLine.className = 'console-line';
+            consoleLine.innerHTML = `
+                <span class="console-prompt">user@query></span>
+                <span>${questionType}</span>
+            `;
+            consoleContent.appendChild(consoleLine);
+            
+            const responseLine = document.createElement('div');
+            responseLine.className = 'console-line';
+            responseLine.innerHTML = `
+                <span class="console-prompt">ai@response></span>
+                <span>${response}</span>
+            `;
+            consoleContent.appendChild(responseLine);
+            
+            // Scroll to bottom
+            consoleContent.scrollTop = consoleContent.scrollHeight;
         }
 
         // Function to handle user input
@@ -1260,38 +1432,19 @@
             const userQuestion = aiInput.value.trim();
             if (!userQuestion || !currentAttraction) return;
             
-            // Add user message to chat
-            const chatContainer = document.querySelector('.chat-container');
-            const userMessage = document.createElement('div');
-            userMessage.className = 'message user-message';
-            userMessage.innerHTML = `
-                <div class="message-content">
-                    <p>${userQuestion}</p>
-                </div>
-                <div class="message-avatar">👤</div>
+            // Add user question to console
+            const userLine = document.createElement('div');
+            userLine.className = 'console-line';
+            userLine.innerHTML = `
+                <span class="console-prompt">user@query></span>
+                <span>${userQuestion}</span>
             `;
-            chatContainer.appendChild(userMessage);
+            consoleContent.appendChild(userLine);
             
             // Clear input
             aiInput.value = '';
             
-            // Simulate AI thinking
-            const aiMessage = document.createElement('div');
-            aiMessage.className = 'message ai-message';
-            aiMessage.innerHTML = `
-                <div class="message-avatar">🤖</div>
-                <div class="message-content">
-                    <div class="ai-response">
-                        <p>Thinking...</p>
-                    </div>
-                </div>
-            `;
-            chatContainer.appendChild(aiMessage);
-            
-            // Scroll to bottom
-            chatContainer.scrollTop = chatContainer.scrollHeight;
-            
-            // Simulate AI response after delay
+            // Add AI response to console after brief delay
             setTimeout(() => {
                 const responses = [
                     `Based on my knowledge of ${currentAttraction.title}, ${userQuestion.toLowerCase().includes('best time') ? 'the best time to visit is during weekdays in the morning to avoid crowds.' : 'this is a fascinating aspect worth exploring further.'}`,
@@ -1300,11 +1453,18 @@
                 ];
                 
                 const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-                aiMessage.querySelector('.ai-response').innerHTML = `<p>${randomResponse}</p>`;
                 
-                // Scroll to bottom again
-                chatContainer.scrollTop = chatContainer.scrollHeight;
-            }, 2000);
+                const responseLine = document.createElement('div');
+                responseLine.className = 'console-line';
+                responseLine.innerHTML = `
+                    <span class="console-prompt">ai@response></span>
+                    <span>${randomResponse}</span>
+                `;
+                consoleContent.appendChild(responseLine);
+                
+                // Scroll to bottom
+                consoleContent.scrollTop = consoleContent.scrollHeight;
+            }, 500);
         }
 
         // Filter functionality
