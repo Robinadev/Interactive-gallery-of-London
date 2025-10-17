@@ -3,11 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>London in Motion</title>
+    <title>London in Motion | Interactive City Guide</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary-color: #e60023;
+            --secondary-color: #2c3e50;
+            --accent-color: #3498db;
+            --light-color: #f8f9fa;
+            --dark-color: #1a1a1a;
+            --text-color: #333;
+            --text-light: #666;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -17,50 +30,236 @@
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #f8f9fa;
-            color: #333;
+            color: var(--text-color);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
+        /* Header Styles */
         header {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(44, 62, 80, 0.9)), 
                         url('https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
             color: white;
+            padding: 30px 20px;
+            position: relative;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            padding: 80px 20px;
-            margin-bottom: 30px;
+        }
+
+        .header-content {
+            max-width: 800px;
+            z-index: 2;
+            animation: fadeInUp 1s ease;
         }
 
         h1 {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            font-weight: 800;
+            letter-spacing: -1px;
         }
 
-        header p {
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto;
+        .tagline {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
             font-weight: 300;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
+        .search-container {
+            max-width: 500px;
+            margin: 0 auto 40px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 50px;
+            border: none;
+            font-size: 1rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            outline: none;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .search-button {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .search-button:hover {
+            background: #c4001d;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Navigation */
+        .main-nav {
+            background: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        /* Filter Section */
+        .filter-section {
+            padding: 30px 20px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .filter-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid #e0e0e0;
+            background: white;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Grid Container */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 25px;
             max-width: 1200px;
-            margin: 0 auto 60px;
+            margin: 40px auto;
             padding: 0 20px;
         }
 
         .card {
             background: white;
-            border-radius: 10px;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
             cursor: pointer;
+            position: relative;
         }
 
         .card:hover {
@@ -70,8 +269,13 @@
 
         .card-image {
             width: 100%;
-            height: 200px;
+            height: 220px;
             object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .card:hover .card-image {
+            transform: scale(1.05);
         }
 
         .card-content {
@@ -80,14 +284,52 @@
 
         .card h3 {
             margin-bottom: 10px;
-            color: #2c3e50;
+            color: var(--secondary-color);
+            font-size: 1.3rem;
         }
 
         .card p {
-            color: #666;
+            color: var(--text-light);
             font-size: 0.9rem;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
+        .card-category {
+            display: inline-block;
+            background: var(--accent-color);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .card-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .card-action {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .card-action:hover {
+            color: var(--primary-color);
+        }
+
+        /* Modal Styles */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -100,24 +342,39 @@
             align-items: center;
             z-index: 1000;
             padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
         }
 
         .modal-content {
             background: white;
-            border-radius: 10px;
-            max-width: 800px;
+            border-radius: 16px;
+            max-width: 900px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transform: translateY(30px);
+            transition: var(--transition);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
         }
 
         .modal-image-container {
             width: 100%;
-            height: 300px;
+            height: 350px;
             overflow: hidden;
+            position: relative;
         }
 
         .modal-image-container img {
@@ -132,12 +389,27 @@
 
         .modal-text-content h2 {
             margin-bottom: 15px;
-            color: #2c3e50;
+            color: var(--secondary-color);
+            font-size: 2rem;
         }
 
         .modal-text-content p {
             color: #555;
             line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .modal-details {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-light);
         }
 
         .close-button {
@@ -145,9 +417,10 @@
             top: 20px;
             right: 20px;
             background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
             border: none;
             color: white;
-            font-size: 2rem;
+            font-size: 1.5rem;
             width: 50px;
             height: 50px;
             border-radius: 50%;
@@ -155,19 +428,70 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: background 0.3s ease;
+            transition: var(--transition);
+            z-index: 10;
         }
 
         .close-button:hover {
             background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
         }
 
-        .hidden {
-            display: none;
+        /* Newsletter Section */
+        .newsletter-section {
+            background: linear-gradient(135deg, var(--secondary-color), var(--dark-color));
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
         }
 
+        .newsletter-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .newsletter-section h2 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+
+        .newsletter-section p {
+            margin-bottom: 30px;
+            opacity: 0.8;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 50px 0 0 50px;
+            font-size: 1rem;
+        }
+
+        .newsletter-button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0 30px;
+            border-radius: 0 50px 50px 0;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+
+        .newsletter-button:hover {
+            background: #c4001d;
+        }
+
+        /* Footer Styles */
         footer {
-            background: #2c3e50;
+            background: var(--dark-color);
             color: white;
             padding: 60px 0 30px;
         }
@@ -195,13 +519,14 @@
             bottom: 0;
             width: 50px;
             height: 2px;
-            background: #3498db;
+            background: var(--accent-color);
         }
 
         .footer-section p {
             margin-bottom: 15px;
             font-size: 0.95rem;
             line-height: 1.7;
+            opacity: 0.8;
         }
 
         .footer-links {
@@ -215,11 +540,13 @@
         .footer-links a {
             color: #ecf0f1;
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: var(--transition);
+            opacity: 0.8;
         }
 
         .footer-links a:hover {
-            color: #3498db;
+            color: var(--accent-color);
+            opacity: 1;
         }
 
         .social-links {
@@ -232,16 +559,17 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             color: white;
-            transition: background 0.3s ease;
+            transition: var(--transition);
         }
 
         .social-links a:hover {
-            background: #3498db;
+            background: var(--primary-color);
+            transform: translateY(-3px);
         }
 
         .footer-bottom {
@@ -256,16 +584,48 @@
         .creator-credit {
             margin-top: 10px;
             font-weight: 600;
-            color: #3498db;
+            color: var(--accent-color);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            h1 {
+                font-size: 3.2rem;
+            }
         }
 
         @media (max-width: 768px) {
             h1 {
-                font-size: 2.2rem;
+                font-size: 2.5rem;
             }
             
-            header p {
-                font-size: 1rem;
+            .tagline {
+                font-size: 1.2rem;
+            }
+            
+            .stats-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
             }
             
             .grid-container {
@@ -277,17 +637,32 @@
             }
             
             .modal-image-container {
-                height: 200px;
+                height: 250px;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-input, .newsletter-button {
+                border-radius: 50px;
+                width: 100%;
+            }
+            
+            .newsletter-button {
+                margin-top: 15px;
+                padding: 15px;
             }
         }
 
         @media (max-width: 480px) {
             header {
                 padding: 60px 20px;
+                min-height: 70vh;
             }
             
             h1 {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
             
             .grid-container {
@@ -297,193 +672,140 @@
             .footer-content {
                 grid-template-columns: 1fr;
             }
+            
+            .modal-text-content {
+                padding: 20px;
+            }
+            
+            .modal-text-content h2 {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>London AI Guide - Gemini Style</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-</head>
 <body>
-    <div class="container">
-        <header class="header">
+    <!-- Header Section -->
+    <header>
+        <div class="header-content">
+            <h1>London in Motion</h1>
+            <p class="tagline">Discover the vibrant heart of England through stunning visuals and immersive experiences</p>
+            
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search landmarks, museums, parks...">
+                <button class="search-button"><i class="fas fa-search"></i></button>
+            </div>
+            
+            <div class="stats-container">
+                <div class="stat">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Landmarks</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">200K+</div>
+                    <div class="stat-label">Photos</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">15K+</div>
+                    <div class="stat-label">Community</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
             <div class="logo">
-                <div class="logo-icon">🤖</div>
-                <h1>London AI Guide</h1>
+                <i class="fas fa-landmark"></i>
+                <span>London in Motion</span>
             </div>
-        </header>
-        
-        <div class="attractions-grid">
-            <!-- Tower Bridge -->
-            <div class="attraction-card" data-attraction="tower-bridge">
-                <div class="image-container">
-                    <img 
-                        src="https://lh3.googleusercontent.com/gps-cs-s/AC9h4npRXRTfGDV8XEZPddq7Hnl_mnJS1SCCTP_XI5XKYMA1mg3hwhLjCcFvXfU5al_STrRRXMToxYgma02CR_jKhk8HJF3f6lvuFC6VqzMKy-3G0uy3ECyZvfFMACq1WNCG-Ef88WRc=w270-h312-n-k-no" 
-                        alt="Tower Bridge" 
-                        class="attraction-image"
-                    >
-                    <div class="ai-badge">AI Analysis Available</div>
-                </div>
-                <div class="card-content">
-                    <h3>Tower Bridge</h3>
-                    <p>Iconic Victorian Bridge</p>
-                    <div class="ai-preview">
-                        <span class="thinking-dots"></span>
-                        Ask me about this landmark...
-                    </div>
-                </div>
-            </div>
-
-            <!-- Big Ben -->
-            <div class="attraction-card" data-attraction="big-ben">
-                <div class="image-container">
-                    <img 
-                        src="https://images.unsplash.com/photo-1529655683826-aba9b3e77383?auto=format&fit=crop&w=800&q=80" 
-                        alt="Big Ben" 
-                        class="attraction-image"
-                    >
-                    <div class="ai-badge">AI Analysis Available</div>
-                </div>
-                <div class="card-content">
-                    <h3>Big Ben</h3>
-                    <p>Historic Clock Tower</p>
-                    <div class="ai-preview">
-                        <span class="thinking-dots"></span>
-                        Ask me about this landmark...
-                    </div>
-                </div>
-            </div>
-
-            <!-- London Eye -->
-            <div class="attraction-card" data-attraction="london-eye">
-                <div class="image-container">
-                    <img 
-                        src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=800&q=80" 
-                        alt="London Eye" 
-                        class="attraction-image"
-                    >
-                    <div class="ai-badge">AI Analysis Available</div>
-                </div>
-                <div class="card-content">
-                    <h3>London Eye</h3>
-                    <p>Giant Observation Wheel</p>
-                    <div class="ai-preview">
-                        <span class="thinking-dots"></span>
-                        Ask me about this landmark...
-                    </div>
-                </div>
-            </div>
-
-            <!-- Buckingham Palace -->
-            <div class="attraction-card" data-attraction="buckingham-palace">
-                <div class="image-container">
-                    <img 
-                        src="data:image/jpeg;base64,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",
-                        alt="Buckingham Palace" 
-                        class="attraction-image"
-                    >
-                    <div class="ai-badge">AI Analysis Available</div>
-                </div>
-                <div class="card-content">
-                    <h3>Buckingham Palace</h3>
-                    <p>Royal Residence</p>
-                    <div class="ai-preview">
-                        <span class="thinking-dots"></span>
-                        Ask me about this landmark...
-                    </div>
-                </div>
-            </div>
-
-            <!-- Add more attractions here -->
+            
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Explore</a></li>
+                <li><a href="#">Collections</a></li>
+                <li><a href="#">Events</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
+    </nav>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="filter-container">
+            <button class="filter-btn active">All</button>
+            <button class="filter-btn">Landmarks</button>
+            <button class="filter-btn">Museums</button>
+            <button class="filter-btn">Parks</button>
+            <button class="filter-btn">Royal</button>
+            <button class="filter-btn">Historic</button>
+            <button class="filter-btn">Modern</button>
+        </div>
+    </section>
+
+    <!-- Grid Container -->
+    <div class="grid-container" id="gridContainer">
+        <!-- Cards will be dynamically generated here -->
     </div>
 
-    <!-- Gemini-style AI Modal -->
-    <div id="aiModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="ai-avatar">
-                    <div class="avatar-icon">🤖</div>
-                    <div class="ai-status">
-                        <span class="status-text">Gemini AI is analyzing...</span>
-                        <div class="typing-indicator">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                    </div>
-                </div>
-                <button class="close-modal">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2"/>
-                    </svg>
-                </button>
-            </div>
-
-            <div class="modal-body">
-                <div class="chat-container">
-                    <div class="message user-message">
-                        <div class="message-avatar">👤</div>
-                        <div class="message-content">
-                            <p>Tell me about <span id="query-attraction">this attraction</span></p>
-                        </div>
-                    </div>
-
-                    <div class="message ai-message">
-                        <div class="message-avatar">🤖</div>
-                        <div class="message-content">
-                            <div id="ai-response" class="ai-response">
-                                <!-- AI response will appear here -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="suggested-questions">
-                    <h4>Ask more about:</h4>
-                    <div class="question-chips">
-                        <button class="question-chip" data-question="history">📜 History</button>
-                        <button class="question-chip" data-question="architecture">🏛️ Architecture</button>
-                        <button class="question-chip" data-question="visiting">🕒 Visiting Tips</button>
-                        <button class="question-chip" data-question="facts">🔍 Fun Facts</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal-footer">
-                <div class="input-container">
-                    <input type="text" id="ai-input" placeholder="Ask Gemini AI about this landmark...">
-                    <button id="send-button" class="send-button">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
-                        </svg>
-                    </button>
-                </div>
-                <div class="disclaimer">
-                    <small>Powered by Gemini AI • Responses are simulated for demonstration</small>
-                </div>
-            </div>
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="newsletter-container">
+            <h2>Stay Updated with London</h2>
+            <p>Subscribe to our newsletter for the latest discoveries, events, and hidden gems in London.</p>
+            <form class="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="Your email address">
+                <button type="submit" class="newsletter-button">Subscribe</button>
+            </form>
         </div>
-    </div>
+    </section>
 
-    <script src="script.js"></script>
-</body>
-</html>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About London in Motion</h3>
+                <p>Your ultimate visual guide to London's most iconic and hidden treasures. We bring the city to life through stunning photography and immersive stories.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+                </div>
+            </div>
             
             <div class="footer-section">
-                <h3>Connect With Us</h3>
-                <p>Stay updated with the latest London discoveries and travel tips by following us on social media.</p>
-                <div class="social-links">
-                    <a href="#" aria-label="Facebook">FB</a>
-                    <a href="#" aria-label="Twitter">TW</a>
-                    <a href="#" aria-label="Instagram">IG</a>
-                    <a href="#" aria-label="YouTube">YT</a>
-                </div>
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Popular Landmarks</a></li>
+                    <li><a href="#">Hidden Gems</a></li>
+                    <li><a href="#">Photo Collections</a></li>
+                    <li><a href="#">Travel Guides</a></li>
+                    <li><a href="#">Events Calendar</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="#">London Travel Tips</a></li>
+                    <li><a href="#">Transportation Guide</a></li>
+                    <li><a href="#">Accommodation</a></li>
+                    <li><a href="#">Food & Dining</a></li>
+                    <li><a href="#">Seasonal Events</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 London Street, London, UK</p>
+                <p><i class="fas fa-phone"></i> +44 20 1234 5678</p>
+                <p><i class="fas fa-envelope"></i> hello@londoninmotion.com</p>
             </div>
         </div>
         
@@ -493,72 +815,170 @@
         </div>
     </footer>
 
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal-content">
+            <div class="modal-image-container">
+                <img src="" alt="" id="modalImage">
+                <button class="close-button" id="closeButton">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-text-content">
+                <h2 id="modalTitle"></h2>
+                <div class="modal-details">
+                    <div class="detail-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span id="modalLocation">London, UK</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-clock"></i>
+                        <span id="modalHours">Open Today: 9AM - 6PM</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-pound-sign"></i>
+                        <span id="modalPrice">Entry: Free - £25</span>
+                    </div>
+                </div>
+                <p id="modalDescription"></p>
+                <div class="card-actions">
+                    <div class="card-action">
+                        <i class="far fa-heart"></i>
+                        <span>Save to Collection</span>
+                    </div>
+                    <div class="card-action">
+                        <i class="far fa-share-square"></i>
+                        <span>Share</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Sample data for London attractions
         const londonData = [
             {
                 id: 1,
                 title: "Tower Bridge",
-                description: "An iconic London landmark and one of the most recognizable bridges in the world. Completed in 1894, this combined bascule and suspension bridge crosses the River Thames close to the Tower of London. The bridge's twin towers, high-level walkways, and Victorian engine rooms now form part of the Tower Bridge Exhibition.",
-                image: "https://lh3.googleusercontent.com/gps-cs-s/AC9h4npRXRTfGDV8XEZPddq7Hnl_mnJS1SCCTP_XI5XKYMA1mg3hwhLjCcFvXfU5al_STrRRXMToxYgma02CR_jKhk8HJF3f6lvuFC6VqzMKy-3G0uy3ECyZvfFMACq1WNCG-Ef88WRc=w270-h312-n-k-no",
-                category: "Landmark"
+                description: "An iconic London landmark and one of the most recognizable bridges in the world. Completed in 1894, this combined bascule and suspension bridge crosses the River Thames close to the Tower of London. The bridge's twin towers, high-level walkways, and Victorian engine rooms now form part of the Tower Bridge Exhibition. Visitors can walk across the high-level glass walkways for spectacular views of London.",
+                image: "https://images.unsplash.com/photo-1548013146-72479768bada?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                category: "Landmark",
+                location: "Tower Bridge Rd, London SE1 2UP",
+                hours: "Open Today: 9:30AM - 6:00PM",
+                price: "From £10.60"
             },
             {
                 id: 2,
                 title: "Buckingham Palace",
-                description: "The London residence and administrative headquarters of the monarch of the United Kingdom. Located in the City of Westminster, the palace is often at the centre of state occasions and royal hospitality. It has been a focal point for the British people at times of national rejoicing and mourning. The Changing of the Guard ceremony is a major tourist attraction.",
-                image: "data:image/jpeg;base64,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",
-                category: "Royal"
+                description: "The London residence and administrative headquarters of the monarch of the United Kingdom. Located in the City of Westminster, the palace is often at the centre of state occasions and royal hospitality. It has been a focal point for the British people at times of national rejoicing and mourning. The Changing of the Guard ceremony is a major tourist attraction watched by thousands daily during summer months.",
+                image: "https://images.unsplash.com/photo-1592394675778-4239b838fb2c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                category: "Royal",
+                location: "Westminster, London SW1A 1AA",
+                hours: "Summer Opening: 9:30AM - 7:30PM",
+                price: "From £30.00"
             },
             {
                 id: 3,
                 title: "British Museum",
-                description: "Dedicated to human history, art and culture, with a permanent collection of over 8 million works. Established in 1753, it was the first public national museum in the world. The museum's extensive collections span over two million years of human history and culture, including the Rosetta Stone and the Parthenon sculptures.",
-                image: "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-                category: "Museum"
+                description: "Dedicated to human history, art and culture, with a permanent collection of over 8 million works. Established in 1753, it was the first public national museum in the world. The museum's extensive collections span over two million years of human history and culture, including the Rosetta Stone and the Parthenon sculptures. The Great Court with its spectacular glass roof is the largest covered public square in Europe.",
+                image: "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                category: "Museum",
+                location: "Great Russell St, Bloomsbury, London WC1B 3DG",
+                hours: "Open Today: 10:00AM - 5:00PM",
+                price: "Free Entry"
             },
             {
                 id: 4,
                 title: "London Eye",
-                description: "Europe's tallest cantilevered observation wheel, offering panoramic views of the city. Standing at 135 meters tall, the London Eye has become one of the most popular tourist attractions in the United Kingdom. Each rotation takes about 30 minutes, providing visitors with breathtaking views of London's skyline, including Big Ben and St. Paul's Cathedral.",
-                image: "https://images.unsplash.com/photo-1533929736458-ca588d08c8be?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-                category: "Attraction"
+                description: "Europe's tallest cantilevered observation wheel, offering panoramic views of the city. Standing at 135 meters tall, the London Eye has become one of the most popular tourist attractions in the United Kingdom. Each rotation takes about 30 minutes, providing visitors with breathtaking views of London's skyline, including Big Ben and St. Paul's Cathedral. At night, the wheel is illuminated in seasonal colors and patterns.",
+                image: "https://images.unsplash.com/photo-1533929736458-ca588d08c8be?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                category: "Attraction",
+                location: "Riverside Building, County Hall, London SE1 7PB",
+                hours: "Open Today: 11:00AM - 6:00PM",
+                price: "From £27.00"
             },
             {
                 id: 5,
                 title: "St. Paul's Cathedral",
-                description: "An Anglican cathedral with a dome that has dominated the London skyline for over 300 years. Designed by Sir Christopher Wren after the Great Fire of London, the present building dates from the 17th century. The cathedral has hosted many significant events, including the wedding of Prince Charles and Lady Diana Spencer, and the funeral of Winston Churchill.",
-                image: "https://images.unsplash.com/photo-1592394675778-4239b838fb2c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-                category: "Religious"
+                description: "An Anglican cathedral with a dome that has dominated the London skyline for over 300 years. Designed by Sir Christopher Wren after the Great Fire of London, the present building dates from the 17th century. The cathedral has hosted many significant events, including the wedding of Prince Charles and Lady Diana Spencer, and the funeral of Winston Churchill. Visitors can climb to the Golden Gallery for spectacular 360-degree views of London.",
+                image: "https://images.unsplash.com/photo-1623341215095-6a4e916e5a4d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                category: "Religious",
+                location: "St. Paul's Churchyard, London EC4M 8AD",
+                hours: "Open Today: 8:30AM - 4:30PM",
+                price: "From £20.50"
             },
             {
                 id: 6,
                 title: "Hyde Park",
-                description: "One of the largest parks in London and home to the famous Serpentine Lake. Covering 350 acres, Hyde Park is one of the city's eight Royal Parks. It's famous for Speaker's Corner, where people have been exercising their right to free speech since the mid-1800s. The park also hosts large-scale concerts and events throughout the year.",
-                image: "https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-                category: "Park"
+                description: "One of the largest parks in London and home to the famous Serpentine Lake. Covering 350 acres, Hyde Park is one of the city's eight Royal Parks. It's famous for Speaker's Corner, where people have been exercising their right to free speech since the mid-1800s. The park also hosts large-scale concerts and events throughout the year. Visitors can enjoy boating on the Serpentine, horseback riding, or simply relaxing in the beautiful green spaces.",
+                image: "https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                category: "Park",
+                location: "Hyde Park, London W2 2UH",
+                hours: "Open 5:00AM - 12:00AM",
+                price: "Free Entry"
+            },
+            {
+                id: 7,
+                title: "The Shard",
+                description: "Western Europe's tallest building, standing 310 meters high with 72 habitable floors. The Shard's tapered glass spire dominates the London skyline and offers unparalleled 360-degree views from its observation deck, The View from The Shard. The building contains offices, restaurants, the Shangri-La Hotel, and residential apartments. The viewing platforms on levels 68, 69, and 72 provide breathtaking vistas up to 40 miles on a clear day.",
+                image: "https://images.unsplash.com/photo-1515586838455-8f8f940d6853?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                category: "Modern",
+                location: "32 London Bridge St, London SE1 9SG",
+                hours: "Open Today: 10:00AM - 10:00PM",
+                price: "From £32.00"
+            },
+            {
+                id: 8,
+                title: "Natural History Museum",
+                description: "Home to life and earth science specimens comprising some 80 million items within five main collections. The museum is particularly famous for its exhibition of dinosaur skeletons and ornate architecture. The central hall features a spectacular blue whale skeleton hanging from the ceiling. The Darwin Centre cocoon houses millions of preserved specimens, while the Earth Hall showcases a dramatic escalator ride through a giant metal globe.",
+                image: "https://images.unsplash.com/photo-1589329644193-b5e472c49e5f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                category: "Museum",
+                location: "Cromwell Rd, South Kensington, London SW7 5BD",
+                hours: "Open Today: 10:00AM - 5:50PM",
+                price: "Free Entry"
             }
         ];
 
         const gridContainer = document.getElementById('gridContainer');
         const modal = document.getElementById('modal');
         const closeButton = document.getElementById('closeButton');
-        const modalImage = modal.querySelector('img');
-        const modalTitle = modal.querySelector('h2');
-        const modalDescription = modal.querySelector('p');
+        const modalImage = document.getElementById('modalImage');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDescription = document.getElementById('modalDescription');
+        const modalLocation = document.getElementById('modalLocation');
+        const modalHours = document.getElementById('modalHours');
+        const modalPrice = document.getElementById('modalPrice');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const searchInput = document.querySelector('.search-input');
+        const searchButton = document.querySelector('.search-button');
 
         // Function to create cards
-        function createCards() {
-            londonData.forEach(item => {
+        function createCards(data = londonData) {
+            gridContainer.innerHTML = '';
+            
+            data.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'card';
                 card.setAttribute('data-id', item.id);
+                card.setAttribute('data-category', item.category.toLowerCase());
                 
                 card.innerHTML = `
                     <img src="${item.image}" alt="${item.title}" class="card-image">
                     <div class="card-content">
                         <h3>${item.title}</h3>
-                        <p>${item.description.substring(0, 100)}...</p>
+                        <p>${item.description.substring(0, 120)}...</p>
+                        <span class="card-category">${item.category}</span>
+                        <div class="card-actions">
+                            <div class="card-action">
+                                <i class="far fa-heart"></i>
+                                <span>Save</span>
+                            </div>
+                            <div class="card-action">
+                                <i class="far fa-share-square"></i>
+                                <span>Share</span>
+                            </div>
+                        </div>
                     </div>
                 `;
                 
@@ -573,15 +993,72 @@
             modalImage.alt = item.title;
             modalTitle.textContent = item.title;
             modalDescription.textContent = item.description;
-            modal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden'; // Prevent scrolling
+            modalLocation.textContent = item.location;
+            modalHours.textContent = item.hours;
+            modalPrice.textContent = item.price;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
 
         // Function to close modal
         function closeModal() {
-            modal.classList.add('hidden');
-            document.body.style.overflow = 'auto'; // Restore scrolling
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
         }
+
+        // Filter functionality
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                const filter = button.textContent.toLowerCase();
+                
+                if (filter === 'all') {
+                    createCards();
+                } else {
+                    const filteredData = londonData.filter(item => 
+                        item.category.toLowerCase() === filter
+                    );
+                    createCards(filteredData);
+                }
+            });
+        });
+
+        // Search functionality
+        function performSearch() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            
+            if (searchTerm === '') {
+                createCards();
+                return;
+            }
+            
+            const filteredData = londonData.filter(item => 
+                item.title.toLowerCase().includes(searchTerm) || 
+                item.description.toLowerCase().includes(searchTerm) ||
+                item.category.toLowerCase().includes(searchTerm)
+            );
+            
+            createCards(filteredData);
+        }
+
+        searchButton.addEventListener('click', performSearch);
+        searchInput.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        // Mobile menu functionality
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
 
         // Event listeners
         closeButton.addEventListener('click', closeModal);
