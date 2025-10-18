@@ -4,941 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>London in Motion | AI-Enhanced Interactive Guide</title>
+    <meta name="description" content="Discover London's iconic landmarks through stunning visuals and AI-powered insights. Explore Tower Bridge, Buckingham Palace, British Museum and more.">
+    <meta name="keywords" content="London attractions, landmarks, tourism, AI guide, Tower Bridge, Buckingham Palace">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary-color: #e60023;
-            --secondary-color: #2c3e50;
-            --accent-color: #3498db;
-            --light-color: #f8f9fa;
-            --dark-color: #1a1a1a;
-            --text-color: #333;
-            --text-light: #666;
-            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f8f9fa;
-            color: var(--text-color);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Header Styles */
-        header {
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(44, 62, 80, 0.9)), 
-                        url('https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: white;
-            padding: 30px 20px;
-            position: relative;
-            min-height: 80vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-
-        .header-content {
-            max-width: 800px;
-            z-index: 2;
-            animation: fadeInUp 1s ease;
-        }
-
-        h1 {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
-            font-weight: 800;
-            letter-spacing: -1px;
-        }
-
-        .tagline {
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-            font-weight: 300;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .search-container {
-            max-width: 500px;
-            margin: 0 auto 40px;
-            position: relative;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 15px 20px;
-            border-radius: 50px;
-            border: none;
-            font-size: 1rem;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-
-        .search-input:focus {
-            outline: none;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-            transform: translateY(-2px);
-        }
-
-        .search-button {
-            position: absolute;
-            right: 5px;
-            top: 5px;
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            padding: 10px 20px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .search-button:hover {
-            background: #c4001d;
-        }
-
-        .stats-container {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-top: 40px;
-        }
-
-        .stat {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
-        /* Navigation */
-        .main-nav {
-            background: white;
-            box-shadow: var(--shadow);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: var(--primary-color);
-        }
-
-        .logo i {
-            margin-right: 10px;
-            font-size: 1.8rem;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-color);
-            font-weight: 500;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary-color);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background-color: var(--primary-color);
-            transition: var(--transition);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--text-color);
-        }
-
-        /* Filter Section */
-        .filter-section {
-            padding: 30px 20px;
-            background: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .filter-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .filter-btn {
-            padding: 10px 20px;
-            border: 2px solid #e0e0e0;
-            background: white;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 500;
-        }
-
-        .filter-btn:hover, .filter-btn.active {
-            background: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
-
-        /* Grid Container */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .card {
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            cursor: pointer;
-            position: relative;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .card-image {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            transition: var(--transition);
-        }
-
-        .card:hover .card-image {
-            transform: scale(1.05);
-        }
-
-        .card-content {
-            padding: 20px;
-        }
-
-        .card h3 {
-            margin-bottom: 10px;
-            color: var(--secondary-color);
-            font-size: 1.3rem;
-        }
-
-        .card p {
-            color: var(--text-light);
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-oriment: vertical;
-            overflow: hidden;
-        }
-
-        .card-category {
-            display: inline-block;
-            background: var(--accent-color);
-            color: white;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-
-        .card-actions {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #f0f0f0;
-        }
-
-        .card-action {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            color: var(--text-light);
-            font-size: 0.9rem;
-            transition: var(--transition);
-        }
-
-        .card-action:hover {
-            color: var(--primary-color);
-        }
-
-        /* AI Badge */
-        .ai-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: var(--primary-color);
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        /* Page URL Display */
-        .page-url {
-            background: #f8f9fa;
-            border-radius: 8px;
-            padding: 12px 15px;
-            margin: 15px 0;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            color: var(--text-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid #e0e0e0;
-        }
-
-        .copy-url {
-            background: var(--accent-color);
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: var(--transition);
-        }
-
-        .copy-url:hover {
-            background: #2980b9;
-        }
-
-        .url-copied {
-            background: #27ae60;
-        }
-
-        /* AI Modal Styles - Google Console Style */
-        #aiModal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            padding: 20px;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition);
-        }
-
-        #aiModal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 16px;
-            max-width: 900px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            transform: translateY(30px);
-            transition: var(--transition);
-        }
-
-        #aiModal.active .modal-content {
-            transform: translateY(0);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 30px;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .ai-avatar {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .avatar-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #4285F4, #34A853, #FBBC05, #EA4335);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-        }
-
-        .ai-status {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .status-text {
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-        .close-modal {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--text-light);
-            transition: var(--transition);
-        }
-
-        .close-modal:hover {
-            color: var(--primary-color);
-        }
-
-        .modal-body {
-            padding: 30px;
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-
-        .info-section {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 20px;
-        }
-
-        .info-section h3 {
-            margin-bottom: 15px;
-            color: var(--secondary-color);
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .info-section p {
-            line-height: 1.6;
-            color: var(--text-light);
-        }
-
-        .quick-facts {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 30px;
-        }
-
-        .quick-facts h3 {
-            margin-bottom: 15px;
-            color: var(--secondary-color);
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .facts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
-        }
-
-        .fact-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        .fact-icon {
-            width: 30px;
-            height: 30px;
-            background: var(--accent-color);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 0.8rem;
-        }
-
-        .fact-text {
-            font-size: 0.9rem;
-            color: var(--text-color);
-        }
-
-        .ai-console {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .console-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .console-header h3 {
-            color: var(--secondary-color);
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .console-content {
-            background: white;
-            border-radius: 8px;
-            padding: 15px;
-            min-height: 150px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            color: var(--text-color);
-            overflow-y: auto;
-            max-height: 200px;
-        }
-
-        .console-line {
-            margin-bottom: 8px;
-            display: flex;
-            align-items: flex-start;
-        }
-
-        .console-prompt {
-            color: #34A853;
-            margin-right: 10px;
-            font-weight: bold;
-        }
-
-        .suggested-questions {
-            margin-top: 30px;
-        }
-
-        .suggested-questions h4 {
-            margin-bottom: 15px;
-            font-size: 1rem;
-            color: var(--text-light);
-        }
-
-        .question-chips {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .question-chip {
-            background: white;
-            border: 1px solid #e0e0e0;
-            padding: 8px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 0.9rem;
-        }
-
-        .question-chip:hover {
-            background: var(--accent-color);
-            color: white;
-            border-color: var(--accent-color);
-        }
-
-        .modal-footer {
-            padding: 20px 30px;
-            border-top: 1px solid #f0f0f0;
-        }
-
-        .input-container {
-            display: flex;
-            margin-bottom: 15px;
-        }
-
-        #ai-input {
-            flex: 1;
-            padding: 15px 20px;
-            border: 1px solid #e0e0e0;
-            border-radius: 50px 0 0 50px;
-            font-size: 1rem;
-        }
-
-        #ai-input:focus {
-            outline: none;
-            border-color: var(--accent-color);
-        }
-
-        .send-button {
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 0 25px;
-            border-radius: 0 50px 50px 0;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .send-button:hover {
-            background: #c4001d;
-        }
-
-        .disclaimer {
-            text-align: center;
-            color: var(--text-light);
-            font-size: 0.8rem;
-        }
-
-        /* Newsletter Section */
-        .newsletter-section {
-            background: linear-gradient(135deg, var(--secondary-color), var(--dark-color));
-            color: white;
-            padding: 60px 20px;
-            text-align: center;
-        }
-
-        .newsletter-container {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .newsletter-section h2 {
-            font-size: 2.2rem;
-            margin-bottom: 15px;
-        }
-
-        .newsletter-section p {
-            margin-bottom: 30px;
-            opacity: 0.8;
-        }
-
-        .newsletter-form {
-            display: flex;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .newsletter-input {
-            flex: 1;
-            padding: 15px 20px;
-            border: none;
-            border-radius: 50px 0 0 50px;
-            font-size: 1rem;
-        }
-
-        .newsletter-button {
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 0 30px;
-            border-radius: 0 50px 50px 0;
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 600;
-        }
-
-        .newsletter-button:hover {
-            background: #c4001d;
-        }
-
-        /* Footer Styles */
-        footer {
-            background: var(--dark-color);
-            color: white;
-            padding: 60px 0 30px;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .footer-section h3 {
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-section h3:after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 50px;
-            height: 2px;
-            background: var(--accent-color);
-        }
-
-        .footer-section p {
-            margin-bottom: 15px;
-            font-size: 0.95rem;
-            line-height: 1.7;
-            opacity: 0.8;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-
-        .footer-links a {
-            color: #ecf0f1;
-            text-decoration: none;
-            transition: var(--transition);
-            opacity: 0.8;
-        }
-
-        .footer-links a:hover {
-            color: var(--accent-color);
-            opacity: 1;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: white;
-            transition: var(--transition);
-        }
-
-        .social-links a:hover {
-            background: var(--primary-color);
-            transform: translateY(-3px);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 40px;
-            margin-top: 40px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.9rem;
-            color: #bdc3c7;
-        }
-
-        .creator-credit {
-            margin-top: 10px;
-            font-weight: 600;
-            color: var(--accent-color);
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes typing {
-            0%, 60%, 100% {
-                transform: translateY(0);
-                opacity: 0.4;
-            }
-            30% {
-                transform: translateY(-10px);
-                opacity: 1;
-            }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-            h1 {
-                font-size: 3.2rem;
-            }
-            
-            .info-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-            
-            .tagline {
-                font-size: 1.2rem;
-            }
-            
-            .stats-container {
-                flex-direction: column;
-                gap: 20px;
-            }
-            
-            .nav-links {
-                display: none;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .grid-container {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-            
-            .modal-content {
-                flex-direction: column;
-            }
-            
-            .facts-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .newsletter-form {
-                flex-direction: column;
-            }
-            
-            .newsletter-input, .newsletter-button {
-                border-radius: 50px;
-                width: 100%;
-            }
-            
-            .newsletter-button {
-                margin-top: 15px;
-                padding: 15px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            header {
-                padding: 60px 20px;
-                min-height: 70vh;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .grid-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .modal-body {
-                padding: 20px;
-            }
-            
-            .modal-header {
-                padding: 15px 20px;
-            }
-            
-            .ai-avatar {
-                gap: 10px;
-            }
-            
-            .avatar-icon {
-                width: 40px;
-                height: 40px;
-                font-size: 1.2rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
     <!-- Header Section -->
@@ -972,18 +44,18 @@
     <!-- Navigation -->
     <nav class="main-nav">
         <div class="nav-container">
-            <div class="logo">
+            <a href="index.html" class="logo">
                 <i class="fas fa-landmark"></i>
                 <span>London in Motion</span>
-            </div>
+            </a>
             
             <ul class="nav-links">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Explore</a></li>
-                <li><a href="#">Collections</a></li>
-                <li><a href="#">Events</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="#explore">Explore</a></li>
+                <li><a href="#collections">Collections</a></li>
+                <li><a href="#events">Events</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
             
             <button class="mobile-menu-btn">
@@ -993,7 +65,7 @@
     </nav>
 
     <!-- Filter Section -->
-    <section class="filter-section">
+    <section class="filter-section" id="explore">
         <div class="filter-container">
             <button class="filter-btn active">All</button>
             <button class="filter-btn">Landmarks</button>
@@ -1011,12 +83,12 @@
     </div>
 
     <!-- Newsletter Section -->
-    <section class="newsletter-section">
+    <section class="newsletter-section" id="contact">
         <div class="newsletter-container">
             <h2>Stay Updated with London</h2>
             <p>Subscribe to our newsletter for the latest discoveries, events, and hidden gems in London.</p>
             <form class="newsletter-form">
-                <input type="email" class="newsletter-input" placeholder="Your email address">
+                <input type="email" class="newsletter-input" placeholder="Your email address" required>
                 <button type="submit" class="newsletter-button">Subscribe</button>
             </form>
         </div>
@@ -1025,7 +97,7 @@
     <!-- Footer -->
     <footer>
         <div class="footer-content">
-            <div class="footer-section">
+            <div class="footer-section" id="about">
                 <h3>About London in Motion</h3>
                 <p>Your ultimate visual guide to London's most iconic and hidden treasures. We bring the city to life through stunning photography and AI-powered insights.</p>
                 <div class="social-links">
@@ -1039,11 +111,11 @@
             <div class="footer-section">
                 <h3>Quick Links</h3>
                 <ul class="footer-links">
-                    <li><a href="#">Popular Landmarks</a></li>
-                    <li><a href="#">Hidden Gems</a></li>
-                    <li><a href="#">Photo Collections</a></li>
-                    <li><a href="#">Travel Guides</a></li>
-                    <li><a href="#">Events Calendar</a></li>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#explore">Popular Landmarks</a></li>
+                    <li><a href="#collections">Photo Collections</a></li>
+                    <li><a href="#events">Travel Guides</a></li>
+                    <li><a href="#events">Events Calendar</a></li>
                 </ul>
             </div>
             
@@ -1072,74 +144,6 @@
         </div>
     </footer>
 
-    <!-- AI Modal -->
-    <div id="aiModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button class="close-modal">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-
-            <div class="modal-body">
-                <!-- Page URL Display -->
-                <div class="page-url" id="pageUrlContainer">
-                    <span id="pageUrl">Loading page URL...</span>
-                    <button class="copy-url" id="copyUrlBtn">Copy URL</button>
-                </div>
-                
-                <div class="info-grid">
-                    <div class="info-section">
-                        <h3><i class="fas fa-history"></i> History</h3>
-                        <p id="history-content">Loading historical information...</p>
-                    </div>
-                    <div class="info-section">
-                        <h3><i class="fas fa-archway"></i> Architecture</h3>
-                        <p id="architecture-content">Loading architectural details...</p>
-                    </div>
-                </div>
-                
-                <div class="quick-facts">
-                    <h3><i class="fas fa-lightbulb"></i> Quick Facts</h3>
-                    <div class="facts-grid" id="facts-container">
-                        <!-- Facts will be dynamically added here -->
-                    </div>
-                </div>
-                
-                <div class="ai-console">
-                    <div class="console-header">
-                        <h3><i class="fas fa-terminal"></i> AI Console</h3>
-                    </div>
-                    <div class="console-content" id="console-content">
-                        <!-- Console output will be dynamically added here -->
-                    </div>
-                </div>
-
-                <div class="suggested-questions">
-                    <h4>Ask more about:</h4>
-                    <div class="question-chips">
-                        <button class="question-chip" data-question="visiting">🕒 Visiting Tips</button>
-                        <button class="question-chip" data-question="events">📅 Events</button>
-                        <button class="question-chip" data-question="transport">🚇 Transportation</button>
-                        <button class="question-chip" data-question="nearby">📍 Nearby Attractions</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal-footer">
-                <div class="input-container">
-                    <input type="text" id="ai-input" placeholder="Ask Gemini AI about this landmark...">
-                    <button id="send-button" class="send-button">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </div>
-                <div class="disclaimer">
-                    <small>Powered by Gemini AI • Responses are simulated for demonstration</small>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script>
         // Sample data for London attractions
         const londonData = [
@@ -1152,8 +156,8 @@
                 location: "Tower Bridge Rd, London SE1 2UP",
                 hours: "Open Today: 9:30AM - 6:00PM",
                 price: "From £10.60",
-                slug: "tower-bridge-london",
-                coordinates: "51.5055, -0.0754"
+                slug: "tower-bridge",
+                pageUrl: "tower-bridge.html"
             },
             {
                 id: 2,
@@ -1164,8 +168,8 @@
                 location: "Westminster, London SW1A 1AA",
                 hours: "Summer Opening: 9:30AM - 7:30PM",
                 price: "From £30.00",
-                slug: "buckingham-palace-london",
-                coordinates: "51.5014, -0.1419"
+                slug: "buckingham-palace",
+                pageUrl: "buckingham-palace.html"
             },
             {
                 id: 3,
@@ -1176,8 +180,8 @@
                 location: "Great Russell St, Bloomsbury, London WC1B 3DG",
                 hours: "Open Today: 10:00AM - 5:00PM",
                 price: "Free Entry",
-                slug: "british-museum-london",
-                coordinates: "51.5194, -0.1270"
+                slug: "british-museum",
+                pageUrl: "british-museum.html"
             },
             {
                 id: 4,
@@ -1188,20 +192,20 @@
                 location: "Riverside Building, County Hall, London SE1 7PB",
                 hours: "Open Today: 11:00AM - 6:00PM",
                 price: "From £27.00",
-                slug: "london-eye-attraction",
-                coordinates: "51.5033, -0.1195"
+                slug: "london-eye",
+                pageUrl: "london-eye.html"
             },
             {
                 id: 5,
                 title: "St. Paul's Cathedral",
                 description: "An Anglican cathedral with a dome that has dominated the London skyline for over 300 years. Designed by Sir Christopher Wren after the Great Fire of London, the present building dates from the 17th century.",
-                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA_jlW1Y4XPNDLHoQn_eqwB1hGpVOa5so8VA&s",
+                image: "https://images.unsplash.com/photo-1623341215095-6a4e916e5a4d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
                 category: "Religious",
                 location: "St. Paul's Churchyard, London EC4M 8AD",
                 hours: "Open Today: 8:30AM - 4:30PM",
                 price: "From £20.50",
-                slug: "st-pauls-cathedral-london",
-                coordinates: "51.5138, -0.0984"
+                slug: "st-pauls-cathedral",
+                pageUrl: "st-pauls-cathedral.html"
             },
             {
                 id: 6,
@@ -1212,8 +216,8 @@
                 location: "Hyde Park, London W2 2UH",
                 hours: "Open 5:00AM - 12:00AM",
                 price: "Free Entry",
-                slug: "hyde-park-london",
-                coordinates: "51.5073, -0.1657"
+                slug: "hyde-park",
+                pageUrl: "hyde-park.html"
             },
             {
                 id: 7,
@@ -1224,141 +228,28 @@
                 location: "32 London Bridge St, London SE1 9SG",
                 hours: "Open Today: 10:00AM - 10:00PM",
                 price: "From £32.00",
-                slug: "the-shard-london",
-                coordinates: "51.5045, -0.0865"
+                slug: "the-shard",
+                pageUrl: "the-shard.html"
             },
             {
                 id: 8,
                 title: "Natural History Museum",
                 description: "Home to life and earth science specimens comprising some 80 million items within five main collections. The museum is particularly famous for its exhibition of dinosaur skeletons.",
-                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQa5SQU9ZPap0dggtlgaln1AOBdATZWkJEpvQ&s",
+                image: "https://images.unsplash.com/photo-1589329644193-b5e472c49e5f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
                 category: "Museum",
                 location: "Cromwell Rd, South Kensington, London SW7 5BD",
                 hours: "Open Today: 10:00AM - 5:50PM",
                 price: "Free Entry",
-                slug: "natural-history-museum-london",
-                coordinates: "51.4967, -0.1764"
+                slug: "natural-history-museum",
+                pageUrl: "natural-history-museum.html"
             }
         ];
 
-        // AI Responses for demonstration
-        const aiResponses = {
-            "Tower Bridge": {
-                history: "Tower Bridge was completed in 1894 after 8 years of construction. It was designed by Horace Jones and John Wolfe Barry to ease road traffic while maintaining river access to the Pool of London docks. The bridge's Victorian Gothic style was chosen to harmonize with the nearby Tower of London.",
-                architecture: "Tower Bridge is a combined bascule and suspension bridge. The bascules (moveable roadways) weigh over 1,000 tons each and can be raised to an 86-degree angle in about 5 minutes. The bridge's towers are constructed of steel and clad in Cornish granite and Portland stone.",
-                facts: [
-                    {icon: "📅", text: "Built: 1886-1894"},
-                    {icon: "🏗️", text: "Architect: Horace Jones"},
-                    {icon: "🌉", text: "Type: Bascule & Suspension"},
-                    {icon: "📏", text: "Length: 244 meters"},
-                    {icon: "👥", text: "Visitors: 40,000+ daily"},
-                    {icon: "💰", text: "Cost: £1.2 million in 1894"}
-                ],
-                console: [
-                    "> Initializing Tower Bridge data index...",
-                    "> Loading historical records...",
-                    "> Accessing architectural database...",
-                    "> Compiling visitor statistics...",
-                    "> Data retrieval complete. Ready for queries."
-                ]
-            },
-            "Buckingham Palace": {
-                history: "Buckingham Palace became the official royal residence in 1837 when Queen Victoria ascended to the throne. The original building was Buckingham House, built in 1703 for the Duke of Buckingham. It was enlarged over the centuries, with the famous balcony added in 1850.",
-                architecture: "The palace features 775 rooms, including 19 State rooms, 52 royal and guest bedrooms, and 78 bathrooms. The East Front, which faces The Mall, was added in 1847. The palace's style is predominantly neoclassical, with influences from French design.",
-                facts: [
-                    {icon: "👑", text: "Royal Residence since 1837"},
-                    {icon: "🏛️", text: "Style: Neoclassical"},
-                    {icon: "🚪", text: "Rooms: 775 total"},
-                    {icon: "🌳", text: "Garden: 39 acres"},
-                    {icon: "👮", text: "Changing of the Guard daily"},
-                    {icon: "💎", text: "Art Collection: 7,000+ pieces"}
-                ],
-                console: [
-                    "> Accessing Royal Archives...",
-                    "> Loading palace blueprints...",
-                    "> Retrieving visitor protocols...",
-                    "> Compiling historical timeline...",
-                    "> Palace database indexed successfully."
-                ]
-            },
-            "St. Paul's Cathedral": {
-                history: "The current St. Paul's Cathedral is the fourth to stand on this site. It was designed by Sir Christopher Wren and built between 1675 and 1710 after the previous cathedral was destroyed in the Great Fire of London in 1666.",
-                architecture: "The cathedral's magnificent dome is one of the largest in the world, weighing approximately 65,000 tons. It features three circular galleries: the internal Whispering Gallery, the external Stone Gallery, and the external Golden Gallery at the very top.",
-                facts: [
-                    {icon: "⛪", text: "Architect: Christopher Wren"},
-                    {icon: "🔥", text: "Rebuilt after Great Fire 1666"},
-                    {icon: "🏗️", text: "Construction: 1675-1710"},
-                    {icon: "📏", text: "Dome height: 111 meters"},
-                    {icon: "💒", text: "Royal Wedding: Charles & Diana"},
-                    {icon: "🎵", text: "Choir founded: 1127"}
-                ],
-                console: [
-                    "> Loading cathedral schematics...",
-                    "> Accessing historical documents...",
-                    "> Calculating dome specifications...",
-                    "> Retrieving event archives...",
-                    "> Cathedral data structure complete."
-                ]
-            },
-            "British Museum": {
-                history: "The British Museum was established in 1753, largely based on the collections of physician and scientist Sir Hans Sloane. It first opened to the public in 1759 in Montagu House. The current building was designed in the Greek Revival style and completed in 1852.",
-                architecture: "The museum's most famous architectural feature is the Great Court, with its spectacular glass and steel roof designed by Norman Foster. Completed in 2000, it is the largest covered public square in Europe. The Reading Room at the center dates from 1857.",
-                facts: [
-                    {icon: "🏛️", text: "Founded: 1753"},
-                    {icon: "📚", text: "Collections: 8+ million objects"},
-                    {icon: "🆓", text: "Admission: Free"},
-                    {icon: "👥", text: "Visitors: 6+ million annually"},
-                    {icon: "🌍", text: "Galleries: 60+"},
-                    {icon: "📖", text: "Reading Room: 1857"}
-                ],
-                console: [
-                    "> Indexing museum collections...",
-                    "> Loading architectural plans...",
-                    "> Accessing visitor statistics...",
-                    "> Compiling exhibition data...",
-                    "> Museum database fully indexed."
-                ]
-            }
-        };
-
-        // Default AI response for attractions without specific data
-        const defaultAIResponse = {
-            history: "This landmark has a rich history dating back centuries, with significant cultural and architectural importance to London. It has witnessed many historical events and transformations of the city around it.",
-            architecture: "The architecture represents a blend of styles from different periods, showcasing the evolution of design and construction techniques. Notable features include intricate details, impressive scale, and innovative engineering solutions.",
-            facts: [
-                {icon: "📅", text: "Historical significance"},
-                {icon: "🏛️", text: "Architectural style"},
-                {icon: "👥", text: "Popular attraction"},
-                {icon: "📍", text: "Central London location"},
-                {icon: "🕒", text: "Regular opening hours"},
-                {icon: "💰", text: "Various ticket options"}
-            ],
-            console: [
-                "> Initializing attraction database...",
-                "> Loading general information...",
-                "> Compiling visitor data...",
-                "> Data retrieval complete.",
-                "> Ready for specific queries."
-            ]
-        };
-
         const gridContainer = document.getElementById('gridContainer');
-        const aiModal = document.getElementById('aiModal');
-        const closeModalBtn = document.querySelector('.close-modal');
-        const historyContent = document.getElementById('history-content');
-        const architectureContent = document.getElementById('architecture-content');
-        const factsContainer = document.getElementById('facts-container');
-        const consoleContent = document.getElementById('console-content');
-        const pageUrl = document.getElementById('pageUrl');
-        const copyUrlBtn = document.getElementById('copyUrlBtn');
-        const aiInput = document.getElementById('ai-input');
-        const sendButton = document.getElementById('send-button');
-        const questionChips = document.querySelectorAll('.question-chip');
         const filterButtons = document.querySelectorAll('.filter-btn');
         const searchInput = document.querySelector('.search-input');
         const searchButton = document.querySelector('.search-button');
-
-        let currentAttraction = null;
+        const newsletterForm = document.querySelector('.newsletter-form');
 
         // Function to create cards
         function createCards(data = londonData) {
@@ -1371,7 +262,7 @@
                 card.setAttribute('data-category', item.category.toLowerCase());
                 
                 card.innerHTML = `
-                    <img src="${item.image}" alt="${item.title}" class="card-image">
+                    <img src="${item.image}" alt="${item.title} - London Attraction" class="card-image">
                     <div class="ai-badge">
                         <i class="fas fa-robot"></i>
                         AI Insights
@@ -1386,174 +277,19 @@
                                 <span>Save</span>
                             </div>
                             <div class="card-action">
-                                <i class="far fa-share-square"></i>
-                                <span>Share</span>
+                                <i class="fas fa-external-link-alt"></i>
+                                <span>View Details</span>
                             </div>
                         </div>
                     </div>
                 `;
                 
-                card.addEventListener('click', () => openAIModal(item));
+                card.addEventListener('click', () => {
+                    window.location.href = item.pageUrl;
+                });
+                
                 gridContainer.appendChild(card);
             });
-        }
-
-        // Function to open AI modal
-        function openAIModal(item) {
-            currentAttraction = item;
-            
-            // Get response data or use default
-            const responseData = aiResponses[item.title] || defaultAIResponse;
-            
-            // Update modal content immediately
-            historyContent.textContent = responseData.history;
-            architectureContent.textContent = responseData.architecture;
-            
-            // Update page URL
-            const fullUrl = `${window.location.origin}/attractions/${item.slug}`;
-            pageUrl.textContent = fullUrl;
-            
-            // Populate facts
-            factsContainer.innerHTML = '';
-            responseData.facts.forEach(fact => {
-                const factElement = document.createElement('div');
-                factElement.className = 'fact-item';
-                factElement.innerHTML = `
-                    <div class="fact-icon">${fact.icon}</div>
-                    <div class="fact-text">${fact.text}</div>
-                `;
-                factsContainer.appendChild(factElement);
-            });
-            
-            // Populate console
-            consoleContent.innerHTML = '';
-            responseData.console.forEach(line => {
-                const consoleLine = document.createElement('div');
-                consoleLine.className = 'console-line';
-                consoleLine.innerHTML = `
-                    <span class="console-prompt">></span>
-                    <span>${line}</span>
-                `;
-                consoleContent.appendChild(consoleLine);
-            });
-            
-            // Show modal
-            aiModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-            
-            // Update browser URL without reloading page
-            const newUrl = `${window.location.origin}${window.location.pathname}?attraction=${item.slug}`;
-            window.history.pushState({ attraction: item.slug }, '', newUrl);
-        }
-
-        // Function to close modal
-        function closeAIModal() {
-            aiModal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-            currentAttraction = null;
-            
-            // Reset URL when modal is closed
-            window.history.pushState({}, '', window.location.pathname);
-        }
-
-        // Function to copy URL to clipboard
-        function copyUrlToClipboard() {
-            const url = pageUrl.textContent;
-            navigator.clipboard.writeText(url).then(() => {
-                copyUrlBtn.textContent = 'Copied!';
-                copyUrlBtn.classList.add('url-copied');
-                setTimeout(() => {
-                    copyUrlBtn.textContent = 'Copy URL';
-                    copyUrlBtn.classList.remove('url-copied');
-                }, 2000);
-            });
-        }
-
-        // Function to handle question chips
-        function handleQuestionChip(questionType) {
-            if (!currentAttraction) return;
-            
-            const responses = {
-                visiting: "The best time to visit is during weekdays in the morning to avoid crowds. Check the official website for current opening hours and any special events or closures.",
-                events: "This attraction hosts various events throughout the year including seasonal exhibitions, cultural festivals, and special guided tours. Check their events calendar for upcoming activities.",
-                transport: "Easily accessible via London Underground, with multiple bus routes serving the area. The nearest tube stations are within walking distance.",
-                nearby: "Several other notable attractions are located nearby, making it easy to plan a full day of sightseeing in this area of London."
-            };
-            
-            const response = responses[questionType] || "I don't have specific information about that. Would you like to know something else about this attraction?";
-            
-            // Add to console
-            const consoleLine = document.createElement('div');
-            consoleLine.className = 'console-line';
-            consoleLine.innerHTML = `
-                <span class="console-prompt">user@query></span>
-                <span>${questionType}</span>
-            `;
-            consoleContent.appendChild(consoleLine);
-            
-            const responseLine = document.createElement('div');
-            responseLine.className = 'console-line';
-            responseLine.innerHTML = `
-                <span class="console-prompt">ai@response></span>
-                <span>${response}</span>
-            `;
-            consoleContent.appendChild(responseLine);
-            
-            // Scroll to bottom
-            consoleContent.scrollTop = consoleContent.scrollHeight;
-        }
-
-        // Function to handle user input
-        function handleUserInput() {
-            const userQuestion = aiInput.value.trim();
-            if (!userQuestion || !currentAttraction) return;
-            
-            // Add user question to console
-            const userLine = document.createElement('div');
-            userLine.className = 'console-line';
-            userLine.innerHTML = `
-                <span class="console-prompt">user@query></span>
-                <span>${userQuestion}</span>
-            `;
-            consoleContent.appendChild(userLine);
-            
-            // Clear input
-            aiInput.value = '';
-            
-            // Add AI response to console after brief delay
-            setTimeout(() => {
-                const responses = [
-                    `Based on my knowledge of ${currentAttraction.title}, ${userQuestion.toLowerCase().includes('best time') ? 'the best time to visit is during weekdays in the morning to avoid crowds.' : 'this is a fascinating aspect worth exploring further.'}`,
-                    `Regarding ${currentAttraction.title}, ${userQuestion.toLowerCase().includes('history') ? 'it has a rich historical background dating back several centuries.' : 'there are many interesting details about its architecture and significance.'}`,
-                    `For ${currentAttraction.title}, ${userQuestion.toLowerCase().includes('tip') ? 'I recommend checking the official website for current opening hours and any special events.' : 'visitors often appreciate learning about its cultural importance to London.'}`
-                ];
-                
-                const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-                
-                const responseLine = document.createElement('div');
-                responseLine.className = 'console-line';
-                responseLine.innerHTML = `
-                    <span class="console-prompt">ai@response></span>
-                    <span>${randomResponse}</span>
-                `;
-                consoleContent.appendChild(responseLine);
-                
-                // Scroll to bottom
-                consoleContent.scrollTop = consoleContent.scrollHeight;
-            }, 500);
-        }
-
-        // Function to handle URL parameters
-        function handleUrlParams() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const attractionSlug = urlParams.get('attraction');
-            
-            if (attractionSlug) {
-                const attraction = londonData.find(item => item.slug === attractionSlug);
-                if (attraction) {
-                    openAIModal(attraction);
-                }
-            }
         }
 
         // Filter functionality
@@ -1595,6 +331,14 @@
             createCards(filteredData);
         }
 
+        // Newsletter form handler
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = newsletterForm.querySelector('.newsletter-input').value;
+            alert(`Thank you for subscribing with ${email}! You'll receive London updates soon.`);
+            newsletterForm.reset();
+        });
+
         // Mobile menu functionality
         const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
         const navLinks = document.querySelector('.nav-links');
@@ -1603,30 +347,21 @@
             navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
         });
 
-        // Event listeners
-        closeModalBtn.addEventListener('click', closeAIModal);
-        aiModal.addEventListener('click', (e) => {
-            if (e.target === aiModal) {
-                closeAIModal();
-            }
-        });
-
-        copyUrlBtn.addEventListener('click', copyUrlToClipboard);
-
-        questionChips.forEach(chip => {
-            chip.addEventListener('click', () => {
-                const questionType = chip.getAttribute('data-question');
-                handleQuestionChip(questionType);
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
             });
         });
 
-        sendButton.addEventListener('click', handleUserInput);
-        aiInput.addEventListener('keyup', (e) => {
-            if (e.key === 'Enter') {
-                handleUserInput();
-            }
-        });
-
+        // Event listeners
         searchButton.addEventListener('click', performSearch);
         searchInput.addEventListener('keyup', (e) => {
             if (e.key === 'Enter') {
@@ -1634,21 +369,8 @@
             }
         });
 
-        // Handle browser back/forward buttons
-        window.addEventListener('popstate', (event) => {
-            if (event.state && event.state.attraction) {
-                const attraction = londonData.find(item => item.slug === event.state.attraction);
-                if (attraction) {
-                    openAIModal(attraction);
-                }
-            } else {
-                closeAIModal();
-            }
-        });
-
         // Initialize the gallery
         createCards();
-        handleUrlParams();
     </script>
 </body>
 </html>
