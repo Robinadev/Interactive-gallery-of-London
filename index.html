@@ -371,6 +371,100 @@
 
         // Initialize the gallery
         createCards();
+        // Enhanced main.js functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Lazy loading for images
+    const lazyImages = document.querySelectorAll('img[data-src]');
+    
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.classList.remove('lazy');
+                imageObserver.unobserve(img);
+            }
+        });
+    });
+
+    lazyImages.forEach(img => imageObserver.observe(img));
+
+    // Enhanced search with debouncing
+    let searchTimeout;
+    searchInput.addEventListener('input', function() {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(performSearch, 300);
+    });
+
+    // Save to favorites functionality
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.card-action')) {
+            const action = e.target.closest('.card-action');
+            const card = action.closest('.card');
+            const attractionId = card.dataset.id;
+            
+            if (action.querySelector('.fa-heart')) {
+                action.innerHTML = '<i class="fas fa-heart" style="color: #e53e3e;"></i><span>Saved</span>';
+                saveToFavorites(attractionId);
+            }
+        }
+    });
+
+    // Newsletter form enhancement
+    newsletterForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = this.querySelector('.newsletter-input').value;
+        
+        // Simulate API call
+        this.innerHTML = '<div class="loading-spinner">Subscribing...</div>';
+        
+        setTimeout(() => {
+            this.innerHTML = `
+                <div class="success-message">
+                    <i class="fas fa-check-circle"></i>
+                    Thank you for subscribing! Check your email for confirmation.
+                </div>
+            `;
+        }, 2000);
+    });
+
+    // Viewport detection for animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in');
+            }
+        });
+    }, observerOptions);
+
+    // Observe cards for animation
+    document.querySelectorAll('.card').forEach(card => {
+        observer.observe(card);
+    });
+});
+
+function saveToFavorites(attractionId) {
+    let favorites = JSON.parse(localStorage.getItem('londonFavorites')) || [];
+    if (!favorites.includes(attractionId)) {
+        favorites.push(attractionId);
+        localStorage.setItem('londonFavorites', JSON.stringify(favorites));
+    }
+}
+
+// Performance monitoring
+window.addEventListener('load', function() {
+    // Log performance metrics
+    if ('performance' in window) {
+        const perfData = window.performance.timing;
+        const loadTime = perfData.loadEventEnd - perfData.navigationStart;
+        console.log(`Page loaded in ${loadTime}ms`);
+    }
+});
     </script>
 </body>
 </html>
