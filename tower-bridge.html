@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tower Bridge | Historic London Landmark | London in Motion</title>
+    <meta name="description" content="Explore Tower Bridge - London's iconic Victorian bridge. Complete guide with history, architecture, visiting information and AI-powered insights.">
+    <meta name="keywords" content="Tower Bridge, London landmarks, Victorian architecture, Thames bridges, London tourism">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <style>
+        /* Individual page specific styles */
+        .page-header {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(44, 62, 80, 0.8)), 
+                        url('https://images.unsplash.com/photo-1548013146-72479768bada?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 20px 60px;
+            position: relative;
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            font-weight: 800;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+
+        .breadcrumb a:hover {
+            opacity: 1;
+        }
+
+        .breadcrumb span {
+            opacity: 0.6;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .main-info {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .info-section {
+            margin-bottom: 30px;
+        }
+
+        .info-section h2 {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-section p {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .quick-facts {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+        }
+
+        .quick-facts h3 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .fact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .fact-item:last-child {
+            border-bottom: none;
+        }
+
+        .fact-icon {
+            width: 35px;
+            height: 35px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .fact-text {
+            flex: 1;
+        }
+
+        .fact-label {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 2px;
+        }
+
+        .fact-value {
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .ai-console-section {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+
+        .console-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .console-header h2 {
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ai-avatar {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: #f8f9fa;
+            padding: 10px 15px;
+            border-radius: 50px;
+        }
+
+        .avatar-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #4285F4, #34A853, #FBBC05, #EA4335);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .console-content {
+            background: #1a1a1a;
+            border-radius: 8px;
+            padding: 20px;
+            min-height: 200px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #00ff00;
+            overflow-y: auto;
+            max-height: 300px;
+            margin-bottom: 20px;
+        }
+
+        .console-line {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .console-prompt {
+            color: #4285F4;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .console-input {
+            display: flex;
+            gap: 10px;
+        }
+
+        .console-input input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .console-input button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .console-input button:hover {
+            background: #c4001d;
+        }
+
+        .gallery-section {
+            margin-bottom: 40px;
+        }
+
+        .gallery-section h2 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-header h1 {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header {
+                padding: 80px 20px 40px;
+            }
+            
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .main-content {
+                padding: 20px 15px;
+            }
+            
+            .main-info, .quick-facts, .ai-console-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-landmark"></i>
+                <span>London in Motion</span>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#explore">Explore</a></li>
+                <li><a href="index.html#collections">Collections</a></li>
+                <li><a href="index.html#events">Events</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="breadcrumb">
+            <a href="index.html">Home</a>
+            <span>/</span>
+            <a href="index.html#explore">Landmarks</a>
+            <span>/</span>
+            <span>Tower Bridge</span>
+        </div>
+        <h1>Tower Bridge</h1>
+        <p>Iconic Victorian Bridge spanning the River Thames</p>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="content-grid">
+            <div class="main-info">
+                <div class="info-section">
+                    <h2><i class="fas fa-history"></i> Historical Background</h2>
+                    <p>Tower Bridge was completed in 1894 after 8 years of construction, designed by Horace Jones and John Wolfe Barry. The bridge was built to ease road traffic while maintaining river access to the Pool of London docks. Its Victorian Gothic style was chosen to harmonize with the nearby Tower of London.</p>
+                    <p>The bridge has become one of London's most recognizable symbols and has witnessed countless historical events, royal processions, and daily London life for over a century.</p>
+                </div>
+                
+                <div class="info-section">
+                    <h2><i class="fas fa-archway"></i> Architectural Features</h2>
+                    <p>Tower Bridge is a combined bascule and suspension bridge. The bascules (moveable roadways) weigh over 1,000 tons each and can be raised to an 86-degree angle in about 5 minutes. The bridge's towers are constructed of steel and clad in Cornish granite and Portland stone, standing 65 meters above the Thames.</p>
+                    <p>The high-level walkways between the towers offer spectacular views of London and house the Tower Bridge Exhibition, showcasing the bridge's history and engineering.</p>
+                </div>
+                
+                <div class="info-section">
+                    <h2><i class="fas fa-map-marked-alt"></i> Visitor Information</h2>
+                    <p>The Tower Bridge Exhibition offers visitors the chance to explore the bridge's history and walk across the high-level glass walkways for spectacular views of London. The Victorian Engine Rooms showcase the original steam engines that once powered the bridge lifts.</p>
+                    <p>Visitors can also witness the bridge lifting for passing ships - check the official website for lift times. The best viewing spots are from the nearby riverbanks or from one of the many Thames river cruises.</p>
+                </div>
+            </div>
+            
+            <div class="sidebar">
+                <div class="quick-facts">
+                    <h3><i class="fas fa-lightbulb"></i> Quick Facts</h3>
+                    <div class="fact-item">
+                        <div class="fact-icon">📅</div>
+                        <div class="fact-text">
+                            <div class="fact-label">Built</div>
+                            <div class="fact-value">1886-1894</div>
+                        </div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-icon">🏗️</div>
+                        <div class="fact-text">
+                            <div class="fact-label">Architect</div>
+                            <div class="fact-value">Horace Jones</div>
+                        </div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-icon">🌉</div>
+                        <div class="fact-text">
+                            <div class="fact-label">Type</div>
+                            <div class="fact-value">Bascule & Suspension</div>
+                        </div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-icon">📏</div>
+                        <div class="fact-text">
+                            <div class="fact-label">Length</div>
+                            <div class="fact-value">244 meters</div>
+                        </div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-icon">👥</div>
+                        <div class="fact-text">
+                            <div class="fact-label">Visitors</div>
+                            <div class="fact-value">40,000+ daily</div>
+                        </div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-icon">💰</div>
+                        <div class="fact-text">
+                            <div class="fact-label">Original Cost</div>
+                            <div class="fact-value">£1.2 million (1894)</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="quick-facts">
+                    <h3><i class="fas fa-clock"></i> Visiting Hours</h3>
+                    <div class="fact-item">
+                        <div class="fact-icon">🕘</div>
+                        <div class="fact-text">
+                            <div class="fact-label">Summer</div>
+                            <div class="fact-value">9:30AM - 6:00PM</div>
+                        </div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-icon">🕘</div>
+                        <div class="fact-text">
+                            <div class="fact-label">Winter</div>
+                            <div class="fact-value">9:30AM - 5:30PM</div>
+                        </div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-icon">💷</div>
+                        <div class="fact-text">
+                            <div class="fact-label">Admission</div>
+                            <div class="fact-value">From £10.60</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quick-facts">
+                    <h3><i class="fas fa-map-marker-alt"></i> Location</h3>
+                    <div class="fact-item">
+                        <div class="fact-icon">📍</div>
+                        <div class="fact-text">
+                            <div class="fact-label">Address</div>
+                            <div class="fact-value">Tower Bridge Rd, London SE1 2UP</div>
+                        </div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-icon">🚇</div>
+                        <div class="fact-text">
+                            <div class="fact-label">Nearest Tube</div>
+                            <div class="fact-value">Tower Hill</div>
+                        </div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-icon">🚌</div>
+                        <div class="fact-text">
+                            <div class="fact-label">Bus Routes</div>
+                            <div class="fact-value">15, 42, 78, 100</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Console Section -->
+        <div class="ai-console-section">
+            <div class="console-header">
+                <h2><i class="fas fa-terminal"></i> Gemini AI Console</h2>
+                <div class="ai-avatar">
+                    <div class="avatar-icon">🤖</div>
+                    <span>Gemini AI Online</span>
+                </div>
+            </div>
+            
+            <div class="console-content" id="console-content">
+                <div class="console-line">
+                    <span class="console-prompt">></span>
+                    <span>Initializing Tower Bridge data index...</span>
+                </div>
+                <div class="console-line">
+                    <span class="console-prompt">></span>
+                    <span>Loading historical records...</span>
+                </div>
+                <div class="console-line">
+                    <span class="console-prompt">></span>
+                    <span>Accessing architectural database...</span>
+                </div>
+                <div class="console-line">
+                    <span class="console-prompt">></span>
+                    <span>Compiling visitor statistics...</span>
+                </div>
+                <div class="console-line">
+                    <span class="console-prompt">></span>
+                    <span>Data retrieval complete. Ready for queries.</span>
+                </div>
+                <div class="console-line">
+                    <span class="console-prompt">></span>
+                    <span>Type 'help' for available commands</span>
+                </div>
+            </div>
+            
+            <div class="console-input">
+                <input type="text" id="console-input" placeholder="Ask about Tower Bridge...">
+                <button id="send-command">Send</button>
+            </div>
+        </div>
+
+        <!-- Gallery Section -->
+        <div class="gallery-section">
+            <h2><i class="fas fa-images"></i> Photo Gallery</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1548013146-72479768bada?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Tower Bridge daytime view from River Thames">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1503386435952-d7918b99d4c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Tower Bridge illuminated at night">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1594736797933-d0d69e1e8a4f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Tower Bridge interior walkway with glass floor">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1578353123127-5c2bfe81b6c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Tower Bridge from river level with boats passing">
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About London in Motion</h3>
+                <p>Your ultimate visual guide to London's most iconic and hidden treasures. We bring the city to life through stunning photography and AI-powered insights.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#explore">Popular Landmarks</a></li>
+                    <li><a href="buckingham-palace.html">Buckingham Palace</a></li>
+                    <li><a href="london-eye.html">London Eye</a></li>
+                    <li><a href="st-pauls-cathedral.html">St. Paul's Cathedral</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="#">London Travel Tips</a></li>
+                    <li><a href="#">Transportation Guide</a></li>
+                    <li><a href="#">Accommodation</a></li>
+                    <li><a href="#">Food & Dining</a></li>
+                    <li><a href="#">Seasonal Events</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 London Street, London, UK</p>
+                <p><i class="fas fa-phone"></i> +44 20 1234 5678</p>
+                <p><i class="fas fa-envelope"></i> hello@londoninmotion.com</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 London in Motion. All rights reserved.</p>
+            <p class="creator-credit">Created by Rihobot Elias</p>
+        </div>
+    </footer>
+
+    <script>
+        // AI Console functionality
+        const consoleInput = document.getElementById('console-input');
+        const sendCommand = document.getElementById('send-command');
+        const consoleContent = document.getElementById('console-content');
+
+        // AI Responses for Tower Bridge
+        const aiResponses = {
+            'help': 'Available commands: history, architecture, visiting, events, facts, nearby, transport, lifts',
+            'history': 'Tower Bridge was built 1886-1894 to ease road traffic while maintaining river access. Designed by Horace Jones in Victorian Gothic style to complement the Tower of London.',
+            'architecture': 'Combined bascule and suspension bridge. Bascules weigh 1,000 tons each, raised to 86° in 5 minutes. Steel towers clad in Cornish granite and Portland stone. Total length: 244 meters.',
+            'visiting': 'Best times: Weekday mornings to avoid crowds. Must see: High-level walkways with glass floors, Victorian Engine Rooms. Allow 1-2 hours for full experience.',
+            'events': 'Regular events: Bridge lifts for tall ships (check schedule), seasonal exhibitions, photography workshops, historical tours, family activities.',
+            'facts': 'Fun facts: Originally painted chocolate brown, repainted red/white/blue for 1977 Silver Jubilee. In 1952, a London bus jumped the opening bascules! Over 40,000 people cross daily.',
+            'nearby': 'Nearby attractions: Tower of London (2 min walk), HMS Belfast, City Hall, The Shard, Borough Market, London Bridge experience.',
+            'transport': 'Nearest tube: Tower Hill (District/Circle lines, 5 min walk). Buses: 15, 42, 78, 100. River services from Tower Pier. Limited parking available.',
+            'lifts': 'Bridge lifts: Check official website for schedule. Typically 1-2 times daily. Best viewing: North bank near Tower Hotel or South bank near City Hall. Free to watch.'
+        };
+
+        function handleCommand() {
+            const command = consoleInput.value.trim().toLowerCase();
+            if (!command) return;
+
+            // Add user command to console
+            const userLine = document.createElement('div');
+            userLine.className = 'console-line';
+            userLine.innerHTML = `
+                <span class="console-prompt">user@tower-bridge></span>
+                <span>${command}</span>
+            `;
+            consoleContent.appendChild(userLine);
+
+            // Clear input
+            consoleInput.value = '';
+
+            // Add AI response
+            setTimeout(() => {
+                const response = aiResponses[command] || 'Command not recognized. Type "help" for available commands.';
+                
+                const responseLine = document.createElement('div');
+                responseLine.className = 'console-line';
+                responseLine.innerHTML = `
+                    <span class="console-prompt">ai@response></span>
+                    <span>${response}</span>
+                `;
+                consoleContent.appendChild(responseLine);
+
+                // Scroll to bottom
+                consoleContent.scrollTop = consoleContent.scrollHeight;
+            }, 500);
+        }
+
+        // Event listeners
+        sendCommand.addEventListener('click', handleCommand);
+        consoleInput.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                handleCommand();
+            }
+        });
+
+        // Mobile menu functionality
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
