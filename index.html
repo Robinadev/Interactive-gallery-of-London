@@ -294,7 +294,7 @@
             margin-bottom: 15px;
             display: -webkit-box;
             -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
+            -webkit-box-oriment: vertical;
             overflow: hidden;
         }
 
@@ -344,6 +344,40 @@
             display: flex;
             align-items: center;
             gap: 5px;
+        }
+
+        /* Page URL Display */
+        .page-url {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: var(--text-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #e0e0e0;
+        }
+
+        .copy-url {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .copy-url:hover {
+            background: #2980b9;
+        }
+
+        .url-copied {
+            background: #27ae60;
         }
 
         /* AI Modal Styles - Google Console Style */
@@ -1054,6 +1088,12 @@
             </div>
 
             <div class="modal-body">
+                <!-- Page URL Display -->
+                <div class="page-url" id="pageUrlContainer">
+                    <span id="pageUrl">Loading page URL...</span>
+                    <button class="copy-url" id="copyUrlBtn">Copy URL</button>
+                </div>
+                
                 <div class="info-grid">
                     <div class="info-section">
                         <h3><i class="fas fa-history"></i> History</h3>
@@ -1117,7 +1157,9 @@
                 category: "Landmark",
                 location: "Tower Bridge Rd, London SE1 2UP",
                 hours: "Open Today: 9:30AM - 6:00PM",
-                price: "From £10.60"
+                price: "From £10.60",
+                slug: "tower-bridge-london",
+                coordinates: "51.5055, -0.0754"
             },
             {
                 id: 2,
@@ -1127,7 +1169,9 @@
                 category: "Royal",
                 location: "Westminster, London SW1A 1AA",
                 hours: "Summer Opening: 9:30AM - 7:30PM",
-                price: "From £30.00"
+                price: "From £30.00",
+                slug: "buckingham-palace-london",
+                coordinates: "51.5014, -0.1419"
             },
             {
                 id: 3,
@@ -1137,7 +1181,9 @@
                 category: "Museum",
                 location: "Great Russell St, Bloomsbury, London WC1B 3DG",
                 hours: "Open Today: 10:00AM - 5:00PM",
-                price: "Free Entry"
+                price: "Free Entry",
+                slug: "british-museum-london",
+                coordinates: "51.5194, -0.1270"
             },
             {
                 id: 4,
@@ -1147,17 +1193,21 @@
                 category: "Attraction",
                 location: "Riverside Building, County Hall, London SE1 7PB",
                 hours: "Open Today: 11:00AM - 6:00PM",
-                price: "From £27.00"
+                price: "From £27.00",
+                slug: "london-eye-attraction",
+                coordinates: "51.5033, -0.1195"
             },
             {
                 id: 5,
                 title: "St. Paul's Cathedral",
                 description: "An Anglican cathedral with a dome that has dominated the London skyline for over 300 years. Designed by Sir Christopher Wren after the Great Fire of London, the present building dates from the 17th century.",
-                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA_jlW1Y4XPNDLHoQn_eqwB1hGpVOa5so8VA&s",
+                image: "https://images.unsplash.com/photo-1623341215095-6a4e916e5a4d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
                 category: "Religious",
                 location: "St. Paul's Churchyard, London EC4M 8AD",
                 hours: "Open Today: 8:30AM - 4:30PM",
-                price: "From £20.50"
+                price: "From £20.50",
+                slug: "st-pauls-cathedral-london",
+                coordinates: "51.5138, -0.0984"
             },
             {
                 id: 6,
@@ -1167,7 +1217,9 @@
                 category: "Park",
                 location: "Hyde Park, London W2 2UH",
                 hours: "Open 5:00AM - 12:00AM",
-                price: "Free Entry"
+                price: "Free Entry",
+                slug: "hyde-park-london",
+                coordinates: "51.5073, -0.1657"
             },
             {
                 id: 7,
@@ -1177,17 +1229,21 @@
                 category: "Modern",
                 location: "32 London Bridge St, London SE1 9SG",
                 hours: "Open Today: 10:00AM - 10:00PM",
-                price: "From £32.00"
+                price: "From £32.00",
+                slug: "the-shard-london",
+                coordinates: "51.5045, -0.0865"
             },
             {
                 id: 8,
                 title: "Natural History Museum",
                 description: "Home to life and earth science specimens comprising some 80 million items within five main collections. The museum is particularly famous for its exhibition of dinosaur skeletons.",
-                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQa5SQU9ZPap0dggtlgaln1AOBdATZWkJEpvQ&s",
+                image: "https://images.unsplash.com/photo-1589329644193-b5e472c49e5f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
                 category: "Museum",
                 location: "Cromwell Rd, South Kensington, London SW7 5BD",
                 hours: "Open Today: 10:00AM - 5:50PM",
-                price: "Free Entry"
+                price: "Free Entry",
+                slug: "natural-history-museum-london",
+                coordinates: "51.4967, -0.1764"
             }
         ];
 
@@ -1299,6 +1355,8 @@
         const architectureContent = document.getElementById('architecture-content');
         const factsContainer = document.getElementById('facts-container');
         const consoleContent = document.getElementById('console-content');
+        const pageUrl = document.getElementById('pageUrl');
+        const copyUrlBtn = document.getElementById('copyUrlBtn');
         const aiInput = document.getElementById('ai-input');
         const sendButton = document.getElementById('send-button');
         const questionChips = document.querySelectorAll('.question-chip');
@@ -1357,6 +1415,10 @@
             historyContent.textContent = responseData.history;
             architectureContent.textContent = responseData.architecture;
             
+            // Update page URL
+            const fullUrl = `${window.location.origin}/attractions/${item.slug}`;
+            pageUrl.textContent = fullUrl;
+            
             // Populate facts
             factsContainer.innerHTML = '';
             responseData.facts.forEach(fact => {
@@ -1384,6 +1446,10 @@
             // Show modal
             aiModal.classList.add('active');
             document.body.style.overflow = 'hidden';
+            
+            // Update browser URL without reloading page
+            const newUrl = `${window.location.origin}${window.location.pathname}?attraction=${item.slug}`;
+            window.history.pushState({ attraction: item.slug }, '', newUrl);
         }
 
         // Function to close modal
@@ -1391,6 +1457,22 @@
             aiModal.classList.remove('active');
             document.body.style.overflow = 'auto';
             currentAttraction = null;
+            
+            // Reset URL when modal is closed
+            window.history.pushState({}, '', window.location.pathname);
+        }
+
+        // Function to copy URL to clipboard
+        function copyUrlToClipboard() {
+            const url = pageUrl.textContent;
+            navigator.clipboard.writeText(url).then(() => {
+                copyUrlBtn.textContent = 'Copied!';
+                copyUrlBtn.classList.add('url-copied');
+                setTimeout(() => {
+                    copyUrlBtn.textContent = 'Copy URL';
+                    copyUrlBtn.classList.remove('url-copied');
+                }, 2000);
+            });
         }
 
         // Function to handle question chips
@@ -1467,6 +1549,19 @@
             }, 500);
         }
 
+        // Function to handle URL parameters
+        function handleUrlParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const attractionSlug = urlParams.get('attraction');
+            
+            if (attractionSlug) {
+                const attraction = londonData.find(item => item.slug === attractionSlug);
+                if (attraction) {
+                    openAIModal(attraction);
+                }
+            }
+        }
+
         // Filter functionality
         filterButtons.forEach(button => {
             button.addEventListener('click', () => {
@@ -1522,6 +1617,8 @@
             }
         });
 
+        copyUrlBtn.addEventListener('click', copyUrlToClipboard);
+
         questionChips.forEach(chip => {
             chip.addEventListener('click', () => {
                 const questionType = chip.getAttribute('data-question');
@@ -1543,8 +1640,21 @@
             }
         });
 
+        // Handle browser back/forward buttons
+        window.addEventListener('popstate', (event) => {
+            if (event.state && event.state.attraction) {
+                const attraction = londonData.find(item => item.slug === event.state.attraction);
+                if (attraction) {
+                    openAIModal(attraction);
+                }
+            } else {
+                closeAIModal();
+            }
+        });
+
         // Initialize the gallery
         createCards();
+        handleUrlParams();
     </script>
 </body>
 </html>
