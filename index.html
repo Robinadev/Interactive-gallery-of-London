@@ -111,7 +111,7 @@
             <div class="footer-section">
                 <h3>Quick Links</h3>
                 <ul class="footer-links">
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="./index.html">Home</a></li>
                     <li><a href="#explore">Popular Landmarks</a></li>
                     <li><a href="#collections">Photo Collections</a></li>
                     <li><a href="#events">Travel Guides</a></li>
@@ -455,6 +455,28 @@ function saveToFavorites(attractionId) {
         localStorage.setItem('londonFavorites', JSON.stringify(favorites));
     }
 }
+// Add this to check if links are working
+function testLinks() {
+    console.log('=== LINK DEBUG ===');
+    londonData.forEach(attraction => {
+        console.log(`Testing: ${attraction.title} -> ${attraction.pageUrl}`);
+        // Test if file exists
+        fetch(attraction.pageUrl)
+            .then(response => {
+                if (response.ok) {
+                    console.log(`✅ ${attraction.title}: LINK WORKS`);
+                } else {
+                    console.log(`❌ ${attraction.title}: LINK BROKEN (${response.status})`);
+                }
+            })
+            .catch(error => {
+                console.log(`❌ ${attraction.title}: LINK ERROR - ${error.message}`);
+            });
+    });
+}
+
+// Run test when page loads
+document.addEventListener('DOMContentLoaded', testLinks);
 
 // Performance monitoring
 window.addEventListener('load', function() {
